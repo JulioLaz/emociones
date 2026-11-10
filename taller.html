@@ -17,6 +17,10 @@ v2.1 — 2026-11-10 — Sin afiches: muro con 3 hojas A4 de título y papelitos
                     pegados alrededor; consejo del grupo en hoja A4.
 v2.2 — 2026-11-10 — Botón "Descargar" para guardar la guía y usarla sin
                     internet.
+v2.3 — 2026-11-10 — Ayudas para entrar en clima: desplegables con 3
+                    disparadores por ítem en "Mi línea", 3 ejemplos y frases
+                    de arranque en "Lo guardado", y "Arrancá así" en el muro,
+                    el consejo y lo que me llevo.
 '''
 -->
 <!doctype html>
@@ -61,6 +65,25 @@ ol{padding-left:1.3em;margin:.3em 0} li{margin:.3em 0}
 h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:4px 0 8px}
 .ejemplo{background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px}
 .foot{display:flex;justify-content:space-between;margin-top:16px}
+
+/* v2.3 — Ayudas: desplegables, frases de arranque y carrusel de ejemplos */
+.ayuda{margin:6px 0 4px}
+.ayuda summary{cursor:pointer;display:inline-block;font-size:.82rem;color:var(--amarillo);border:1px dashed var(--amarillo);border-radius:999px;padding:3px 11px;list-style:none;user-select:none}
+.ayuda summary::-webkit-details-marker{display:none}
+.ayuda[open] summary{background:rgba(242,198,109,.12)}
+.ayuda ul{list-style:none;padding:0;margin:8px 0 2px;display:grid;gap:6px}
+.ayuda li{background:var(--panel2);border-left:3px solid var(--amarillo);border-radius:7px;padding:7px 10px;font-size:.9rem;margin:0}
+.arranca{margin-top:14px;background:var(--panel2);border-radius:10px;padding:12px}
+.arranca h4{margin:0 0 8px;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--amarillo)}
+.arranca .sub{font-size:.8rem;color:var(--muted);margin:10px 0 6px}
+.arranca .sub:first-of-type{margin-top:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:Caveat,cursive;font-size:1.15rem;line-height:1.2;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--chalk)}
+.carr .tabs{display:flex;gap:6px;margin-bottom:10px}
+.carr .tabs button{font-size:.8rem;padding:4px 10px}
+.carr .tabs button.on{border-color:var(--amarillo);color:var(--amarillo)}
+.carr .pane{display:none}
+.carr .pane.on{display:block}
 
 /* SVG línea */
 .ej-svg{width:100%;height:auto;display:block}
@@ -129,6 +152,20 @@ h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--mu
 <main><section class="card" id="main"></section></main>
 
 <script>
+// v2.3 — Helpers de ayuda: desplegable de disparadores, frases de arranque y carrusel
+const ayuda = items => `<details class="ayuda"><summary>💭 ¿No se te ocurre? Tocá acá</summary><ul>${items.map(i=>`<li>${i}</li>`).join("")}</ul></details>`;
+const chips = items => `<div class="chips">${items.map(i=>`<span class="chip">${i}</span>`).join("")}</div>`;
+const arranca = grupos => `<div class="arranca"><h4>✏️ Arrancá así</h4>${grupos.map(([sub,items])=>`${sub?`<div class="sub">${sub}</div>`:""}${chips(items)}`).join("")}</div>`;
+const carrusel = (id, items) => `<div class="carr" id="carr-${id}">
+    <div class="tabs">${items.map((_,i)=>`<button class="${i?"":"on"}" onclick="verPane('${id}',${i})">Ejemplo ${i+1}</button>`).join("")}</div>
+    ${items.map((h,i)=>`<div class="pane ${i?"":"on"}">${h}</div>`).join("")}
+  </div>`;
+function verPane(id, n){
+  const c = document.getElementById("carr-"+id); if(!c) return;
+  c.querySelectorAll(".tabs button").forEach((b,i)=>b.classList.toggle("on",i===n));
+  c.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("on",i===n));
+}
+
 // v2.0 — Ejemplos visuales (HTML/SVG) por actividad
 const EJ = {
   reglas: `
@@ -163,12 +200,23 @@ const EJ = {
       }).join("")}
     </svg>`,
 
-  guardado: `
-    <div class="hoja">
+  guardado: carrusel("guardado", [
+    `<div class="hoja">
       Me dio bronca cuando nadie me eligió para el grupo en 3°. No dije nada y me hice el que no me importaba.
       También extraño a los que se fueron de la escuela. A veces sentí que tenía que ser otro para encajar…
       <div class="ensena">Esto me enseñó: que no hace falta hacerme el fuerte todo el tiempo.</div>
-    </div>
+    </div>`,
+    `<div class="hoja">
+      En 4° mi mejor amiga se cambió de escuela y nunca le dije cuánto la extrañaba. Los recreos se me hacían larguísimos
+      y yo hacía como que no pasaba nada. Me hubiera gustado que alguien me preguntara cómo estaba…
+      <div class="ensena">Esto me enseñó: que está bien extrañar, y decirlo.</div>
+    </div>`,
+    `<div class="hoja">
+      Siempre sentí que los demás entendían más rápido que yo. Cuando el profe preguntaba, me hacía el distraído
+      para que no me tocara. Me daba vergüenza preguntar y nunca lo dije…
+      <div class="ensena">Esto me enseñó: que preguntar no me hace menos.</div>
+    </div>`
+  ]) + `
     <div class="opciones">
       <div class="opcion"><span class="ico">✂️</span>La rompo</div>
       <div class="opcion"><span class="ico">✉️</span>La guardo en el sobre</div>
@@ -203,11 +251,16 @@ const EJ = {
     </div>
     <div class="dice">Podés decir: «Me sorprendió que a tantos les pasara lo mismo que a mí…»</div>`,
 
-  consejo: `
-    <div class="tarjeta">
+  consejo: carrusel("consejo", [
+    `<div class="tarjeta">
       Algo que me hubiera gustado saber en 1° es que pedir ayuda no es de débiles. Y que los amigos de verdad aparecen solos, no hace falta forzar nada.
       <div class="firma">— un egresado 2026</div>
     </div>`,
+    `<div class="tarjeta">
+      No dejen las materias para diciembre, después es peor 😅. Y hablen con todos, no solo con su grupito: a mis mejores amigos los conocí recién en 4°.
+      <div class="firma">— Lucas, 6° año</div>
+    </div>`
+  ]),
 
   grupo: `
     <div class="afiche">
@@ -257,12 +310,19 @@ const PASOS = [
     ejTit:"Las reglas", ej:EJ.reglas },
   { nav:"Mi línea", tipo:"personal", tipoTxt:"Personal", titulo:"Mi línea de estos años",
     consigna:"Dibujá una línea de 1° año a hoy y marcá 5 momentos.",
-    pasos:["🤝 Un momento en que me sentí parte del grupo.","🌧️ Un momento difícil (el que vos elijas).","⭐ Alguien de la escuela que me marcó para bien.","💡 Algo que aprendí de mí, no de una materia.","😂 Un momento en que me reí hasta no poder más."],
+    pasos:[
+      {t:"🤝 Un momento en que me sentí parte del grupo.", ay:["Un viaje, campamento o salida del curso.","Una vez que se bancaron entre todos por algo: un trabajo, un acto, un profe.","La semana del estudiante, una previa o el día que eligieron el buzo."]},
+      {t:"🌧️ Un momento difícil (el que vos elijas).", ay:["Una materia que se te hizo cuesta arriba.","Un día que no querías venir a la escuela.","Un cambio: de curso, de amigos, o algo de casa que se notaba acá."]},
+      {t:"⭐ Alguien de la escuela que me marcó para bien.", ay:["Un profe que te tuvo paciencia.","Un compañero que te defendió o te ayudó.","Alguien de la escuela (preceptor, portero, kiosquero) que siempre te saludaba."]},
+      {t:"💡 Algo que aprendí de mí, no de una materia.", ay:["Algo que antes te daba miedo y ahora no.","Una vez que te animaste a decir lo que pensabas.","Algo en lo que sos bueno y no sabías."]},
+      {t:"😂 Un momento en que me reí hasta no poder más.", ay:["Un apodo o un chiste interno del curso.","Algo que salió mal en un acto o en educación física.","Una hora libre que terminó en desastre."]}
+    ],
     ejTit:"Ejemplo", ej:EJ.linea, ancho:true },
   { nav:"Lo guardado", tipo:"personal", tipoTxt:"Personal", titulo:"Lo que quedó guardado",
     consigna:"Escribí sin parar lo que te quedó guardado de estos años. Al final, una línea: «esto me enseñó…».",
     pasos:["Escribí sin levantar la lapicera.","Si te trabás, escribí «no sé qué poner» hasta que salga algo.","Al final: «esto me enseñó…».","Vos elegís: la rompés o la guardás en el sobre.","Esta hoja no la lee nadie. Nunca."],
-    ejTit:"Ejemplo", ej:EJ.guardado },
+    extra:arranca([["",["Nunca dije que…","Me dolió cuando…","Me hubiera gustado que…","Todavía me pesa…","Me hice el que no me importaba cuando…"]]]),
+    ejTit:"Ejemplos", ej:EJ.guardado },
   { nav:"Pausa", tipo:"pausa", tipoTxt:"Pausa", titulo:"Pausa",
     consigna:"Un respiro antes de seguir.",
     pasos:["Agua, estirarse, respirar.","Después viene la parte que compartimos."],
@@ -270,6 +330,11 @@ const PASOS = [
   { nav:"El muro", tipo:"grupo", tipoTxt:"En grupo", titulo:"El muro",
     consigna:"En tus 3 papelitos escribí lo que quieras para cada hoja de la pared. Sin firma y sin nombres de personas.",
     pasos:["Hay 3 hojas en la pared: «Lo que me pesó y no dije», «Lo que me hizo bien», «Lo que dejo acá».","Un papelito para cada hoja, en letra de imprenta. Escribí solo en los que quieras.","Frases cortas: lo que sentiste, no a quién culpás.","Cuando el profe avisa, pegamos todos a la vez alrededor de cada hoja.","Segunda vuelta, en silencio: leé el muro y marcá un ✓ si algo te pasó a vos también."],
+    extra:arranca([
+      ["Lo que me pesó y no dije",["Tener que hacerme el que no me importaba","Que me costaba seguir el ritmo"]],
+      ["Lo que me hizo bien",["Los mates en la hora libre","Que alguien me preguntara cómo estaba"]],
+      ["Lo que dejo acá",["El miedo a hablar en público","Las ganas de rendirme en 3°"]]
+    ]),
     ejTit:"Ejemplo", ej:EJ.muro },
   { nav:"Lo que vemos", tipo:"grupo", tipoTxt:"Todos", titulo:"Lo que vemos en el muro",
     consigna:"¿Qué se repite? ¿Qué te sorprendió leer?",
@@ -277,8 +342,9 @@ const PASOS = [
     ejTit:"Ejemplo", ej:EJ.vemos },
   { nav:"Mi consejo", tipo:"personal", tipoTxt:"Personal", titulo:"Mi consejo para 1° año",
     consigna:"Mirá tu línea. Elegí algo que viviste, bueno o difícil, y convertilo en un consejo para alguien que recién empieza.",
-    pasos:["Si te trabás: «Algo que me hubiera gustado saber en 1° es…»","O: «No se preocupen tanto por… y aprovechen…»","Firma opcional: tu nombre o «un egresado 2026».","Sin nombres de profes ni compañeros: son consejos, no confesiones."],
-    ejTit:"Ejemplo de tarjeta", ej:EJ.consejo },
+    pasos:["Escribí un consejo corto, como si se lo dijeras en persona.","Firma opcional: tu nombre o «un egresado 2026».","Sin nombres de profes ni compañeros: son consejos, no confesiones."],
+    extra:arranca([["",["Algo que me hubiera gustado saber en 1° es…","No se preocupen tanto por… y aprovechen…","Lo que nadie te dice de la secundaria es…","Si pudiera volver a 1°, yo…","Animate a…"]]]),
+    ejTit:"Ejemplos de tarjeta", ej:EJ.consejo },
   { nav:"Consejo del grupo", tipo:"grupo", tipoTxt:"En grupo", titulo:"El consejo del grupo",
     consigna:"Junten sus ideas en un solo mensaje para 1° año, escríbanlo en una hoja A4 y elijan quién lo va a decir.",
     pasos:["Quien quiera lee su tarjeta al grupo.","Busquen lo que se repite o lo que más les gustó.","Escriban el mensaje en la hoja A4: letra grande, corto y como si hablaran.","Elijan al representante entre los que se ofrecen.","Entreguen las tarjetas al profe."],
@@ -290,6 +356,10 @@ const PASOS = [
   { nav:"Lo que me llevo", tipo:"personal", tipoTxt:"Personal + pizarrón", titulo:"Lo que me llevo",
     consigna:"Escribí una sola cosa que te llevás y no te querés olvidar. Después, quien quiera pasa y escribe UNA palabra en el pizarrón.",
     pasos:["En el reverso de tu línea: «lo que me llevo».","Al sobre, con una frase para vos dentro de un año.","Tu nombre afuera del sobre.","Una palabra al pizarrón (si querés)."],
+    extra:arranca([
+      ["Lo que me llevo (una sola cosa)",["Las risas del fondo del aula","A la profe que me hizo creer que podía","Que me animo a hablar en público","El viaje de egresados"]],
+      ["Una frase para vos dentro de un año",["¿Seguís en contacto con los chicos?","Ojalá estés haciendo lo que te gusta","No te olvides de dónde venís"]]
+    ]),
     ejTit:"Ejemplo", ej:EJ.llevo },
   { nav:"Cierre", tipo:"grupo", tipoTxt:"Todos", titulo:"Gracias",
     consigna:"No se llevan una nota. Se llevan un rato para mirarse, un sobre, y algo que van a dejar.",
@@ -314,9 +384,12 @@ function renderNav(){
 function renderMain(){
   const p = PASOS[idx];
   const ejemplo = p.ej ? `<div class="ejemplo">${p.ejTit?`<h3>${p.ejTit}</h3>`:""}${p.ej}</div>` : "";
+  // v2.3 — un paso puede ser texto o {t, ay:[disparadores]}; "extra" agrega frases de arranque
+  const li = x => typeof x === "string" ? `<li>${x}</li>` : `<li>${x.t}${ayuda(x.ay)}</li>`;
+  const lista = `<ol>${p.pasos.map(li).join("")}</ol>${p.extra||""}`;
   const cuerpo = p.ancho
-    ? `<ol>${p.pasos.map(x=>`<li>${x}</li>`).join("")}</ol><div style="margin-top:14px">${ejemplo}</div>`
-    : `<div class="cols"><div><ol>${p.pasos.map(x=>`<li>${x}</li>`).join("")}</ol></div><div>${ejemplo}</div></div>`;
+    ? `${lista}<div style="margin-top:14px">${ejemplo}</div>`
+    : `<div class="cols"><div>${lista}</div><div>${ejemplo}</div></div>`;
   $("#main").innerHTML = `
     <span class="tag t-${p.tipo}">${p.tipoTxt}</span>
     <h2>${p.titulo}</h2>

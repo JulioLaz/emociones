@@ -14,6 +14,9 @@ v2.0 — 2026-11-09 — Separada: versión solo docente. Sin botones de modo
                     (pizarrón fijo), fuentes más chicas, agenda con tiempos.
 v2.1 — 2026-11-10 — Sin afiches: muro con 3 hojas A4 de título y papelitos
                     (A4 cortada en 4); consejo del grupo en hoja A4.
+v2.3 — 2026-11-10 — Recuadro "Tu ejemplo primero" (modelado docente de
+                    30 s) y notas sobre las ayudas desplegables de la guía
+                    de alumnos.
 '''
 -->
 <!doctype html>
@@ -53,6 +56,9 @@ ul,ol{padding-left:1.2em;margin:.3em 0} li{margin:.3em 0}
 .guion{font-style:italic;background:var(--panel2);border-radius:8px;padding:10px 12px}
 .cuidado{border:1px dashed var(--lila);border-radius:10px;padding:10px 12px;margin-top:12px;font-size:.92rem}
 .cuidado b{color:var(--lila)}
+/* v2.3 — Modelado docente */
+.modelo{background:rgba(242,198,109,.10);border:1px solid var(--amarillo);border-radius:10px;padding:10px 12px;font-size:.92rem}
+.modelo b{color:var(--amarillo)}
 .timer{text-align:center}
 .clock{font-family:Caveat,cursive;font-size:3.6rem;line-height:1;color:var(--chalk);margin:4px 0 10px}
 .clock.done{color:var(--coral)}
@@ -102,12 +108,14 @@ const M = [
   { nav:"Mi línea", titulo:"Mi línea de estos años", min:15,
     ven:"Línea de 1° a hoy con 5 momentos y el dibujo de ejemplo.",
     guion:"«Hoja horizontal, una línea de punta a punta. Una palabra, un dibujo, una fecha. Nadie lo va a leer. Y guárdenla: la vamos a usar más tarde.»",
-    notas:["Música baja. Caminá sin leer lo que escriben.","Si alguien «no se acuerda de nada», que empiece por el momento de risa.","Recordá que la conserven: es la base del consejo a 1° año."],
+    modelo:"Antes de que empiecen, dibujá en el pizarrón una línea corta con 2 momentos tuyos de la secundaria: uno lindo y uno difícil pero liviano (una materia que te costó, un cambio de escuela). Una palabra o un dibujo cada uno.",
+    notas:["Música baja. Caminá sin leer lo que escriben.","Cada ítem tiene un botón «💭 ¿No se te ocurre? Tocá acá» con 3 disparadores. Si proyectás, abrilos vos para el que esté trabado.","Si alguien «no se acuerda de nada», que empiece por el momento de risa.","Recordá que la conserven: es la base del consejo a 1° año."],
     cuidado:"«Un momento difícil» queda abierto a propósito: cada uno decide qué tan hondo va. No pidas ejemplos." },
   { nav:"Lo guardado", titulo:"Lo que quedó guardado", min:10, extra:[["5:00",300]],
     ven:"Escritura libre + «esto me enseñó…» + romper o guardar.",
     guion:"«Lo que les dio bronca, lo que les dolió, lo que no dijeron. Sin corregir. Y al final, una sola línea: qué me enseñó eso. Después ustedes eligen si la rompen o la guardan.»",
-    notas:["Usá el botón 5:00 para la escritura; el resto es para la última línea y romper/guardar.","Romper es opcional: guardar en el sobre también es soltar."],
+    modelo:"Decí en voz alta una frase tuya que empiece con «Nunca dije que…» o «Me dolió cuando…», algo simple de tu adolescencia, y cerrala con «esto me enseñó…». Así ven el formato completo en 20 segundos.",
+    notas:["Usá el botón 5:00 para la escritura; el resto es para la última línea y romper/guardar.","En pantalla hay 3 ejemplos (bronca, tristeza, inseguridad) y frases para arrancar: dejalas proyectadas mientras escriben.","Romper es opcional: guardar en el sobre también es soltar."],
     cuidado:"Es el momento más intenso. Si ves a alguien angustiado: acercate en voz baja, ofrecé salir un minuto a tomar agua (con un compañero de confianza si quiere) y conversá al terminar. No hace falta resolver nada en el momento: alcanza con que sepa que lo viste." },
   { nav:"Pausa", titulo:"Pausa", min:5,
     ven:"Agua, estirarse, respirar.",
@@ -117,7 +125,8 @@ const M = [
   { nav:"El muro", titulo:"El muro", min:20, extra:[["10:00",600],["8:00",480]],
     ven:"Las 3 hojas de la pared, el ejemplo de papelitos alrededor del título con ✓ y el «así no / así sí».",
     guion:"«Lo de recién era solo para ustedes. Ahora les propongo dejar algo para el grupo, sin firma. Tienen 3 papelitos, uno para cada hoja de la pared. Escriban solo en los que quieran, en letra de imprenta. Nunca contra alguien con nombre.»",
-    notas:["Repartí 3 papelitos por estudiante.","Escribir en el banco: unos 8 minutos. Letra de imprenta: la cursiva se reconoce.","Pegar: todos a la vez cuando vos avisás, para que no se vea quién pega qué. Otra opción: doblan los papelitos, los ponen en 3 cajas o bolsas, se mezclan y cada uno pega papelitos al azar.","Los papelitos en blanco no se pegan.","Segunda vuelta, leer y marcar ✓: unos 8 minutos.","Los ✓ son la clave: ver que a otros les pasó lo mismo es lo que más descarga.","Vos también podés escribir algo."],
+    modelo:"Escribí vos un papelito en el momento, leelo en voz alta y pegalo primero. Por ejemplo, en «Lo que me hizo bien»: «Los mates en la sala de profes».",
+    notas:["Repartí 3 papelitos por estudiante.","En pantalla quedan 2 frases de ejemplo por hoja («Arrancá así»).","Escribir en el banco: unos 8 minutos. Letra de imprenta: la cursiva se reconoce.","Pegar: todos a la vez cuando vos avisás, para que no se vea quién pega qué. Otra opción: doblan los papelitos, los ponen en 3 cajas o bolsas, se mezclan y cada uno pega papelitos al azar.","Los papelitos en blanco no se pegan.","Segunda vuelta, leer y marcar ✓: unos 8 minutos.","Los ✓ son la clave: ver que a otros les pasó lo mismo es lo que más descarga.","Vos también podés escribir algo."],
     cuidado:"Si aparece algo que señala o lastima a alguien, retiralo con discreción y recordá la regla en general, sin buscar culpables. Si algo te preocupa por la seguridad de un estudiante, no lo trabajes frente al grupo: anotalo y hablalo después con dirección." },
   { nav:"Lo que vemos", titulo:"Lo que vemos en el muro", min:10,
     ven:"¿Qué se repite? ¿Qué te sorprendió leer?",
@@ -127,7 +136,8 @@ const M = [
   { nav:"Mi consejo", titulo:"Mi consejo para 1° año", min:10,
     ven:"Consigna de la tarjeta y ejemplo de consejo.",
     guion:"«Del otro lado de la escuela hay chicos de 12 o 13 años que recién empiezan lo que ustedes terminan. ¿Qué les dirían? Usen lo que vivieron: hasta lo difícil puede servirle a otro.»",
-    notas:["Es el momento que convierte lo que dolió en algo útil para otro: sin apuro.","Por ahora las tarjetas se las quedan: las usan en el momento siguiente."],
+    modelo:"Contá el consejo que te hubiera gustado escuchar a vos en 1° año. Una o dos frases, nada más.",
+    notas:["Es el momento que convierte lo que dolió en algo útil para otro: sin apuro.","En pantalla hay 5 comienzos posibles y 2 tarjetas de ejemplo.","Por ahora las tarjetas se las quedan: las usan en el momento siguiente."],
     cuidado:"Recordá quiénes van a leerlas: nada que asuste ni que exponga a alguien." },
   { nav:"Consejo del grupo", titulo:"El consejo del grupo", min:15,
     ven:"Pasos del trabajo en grupo y ejemplo de hoja A4 con el mensaje.",
@@ -142,7 +152,8 @@ const M = [
   { nav:"Lo que me llevo", titulo:"Lo que me llevo", min:15,
     ven:"Ejemplo de sobre y de pizarrón con palabras.",
     guion:"«Una sola cosa. Una persona, un momento, algo que aprendieron de ustedes. Y si quieren, una palabra al pizarrón: así nos llevamos también lo del grupo.»",
-    notas:["Sobres: los custodiás vos hasta fin de año, o se los llevan cerrados para la cena de egresados.","Sacale una foto al pizarrón (no a las personas) y compartila con el curso."],
+    modelo:"Decí qué te llevás vos de este curso, en una frase, y escribí tu palabra primero en el pizarrón. Rompe el hielo para que pasen los demás.",
+    notas:["En pantalla hay ejemplos de «una sola cosa» y de frases para el sobre.","Sobres: los custodiás vos hasta fin de año, o se los llevan cerrados para la cena de egresados.","Sacale una foto al pizarrón (no a las personas) y compartila con el curso."],
     cuidado:"" },
   { nav:"Cierre", titulo:"Cierre", min:5,
     ven:"«Gracias» y aviso de la visita.",
@@ -184,6 +195,7 @@ function renderMain(){
     <h2>${m.titulo}</h2>
     <div class="meta">${m.min?`${m.min} minutos`:"Preparación"}</div>
     ${m.ven!=="—"?`<h3>Lo que ven los alumnos</h3><div class="ven">${m.ven}</div>`:""}
+    ${m.modelo?`<h3>Tu ejemplo primero (30 s)</h3><div class="modelo"><b>🗣️ Modelá:</b> ${m.modelo}</div>`:""}
     ${m.guion?`<h3>Qué decir</h3><div class="guion">${m.guion}</div>`:""}
     <h3>Notas</h3><ul>${m.notas.map(n=>`<li>${n}</li>`).join("")}</ul>
     ${m.cuidado?`<div class="cuidado"><b>Cuidado del grupo:</b> ${m.cuidado}</div>`:""}
