@@ -1,0 +1,267 @@
+<!--
+'''
+GUÍA DOCENTE — TALLER "LO QUE TRAJE, LO QUE ME LLEVO"
+Guía privada del docente para conducir el taller de cierre (120 min) y la
+visita posterior a 1° año. Incluye agenda con tiempos, cronómetro por momento,
+qué decir, notas y cuidados del grupo. Se usa en el celular o la notebook
+del docente mientras se proyecta taller.html.
+No guarda ni envía datos.
+
+Versiones:
+v1.0 — 2026-11-08 — Guía única docente/alumnos (60 min).
+v1.1 — 2026-11-08 — 120 min + consejo a 1° año + visita.
+v2.0 — 2026-11-09 — Separada: versión solo docente. Sin botones de modo
+                    (pizarrón fijo), fuentes más chicas, agenda con tiempos.
+v2.1 — 2026-11-10 — Sin afiches: muro con 3 hojas A4 de título y papelitos
+                    (A4 cortada en 4); consejo del grupo en hoja A4.
+'''
+-->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía docente del taller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1f2a24; --panel:#26332c; --panel2:#2d3c34; --line:#3d5045;
+  --text:#eef1ea; --muted:#a9b8ad; --chalk:#f4f1e6;
+  --amarillo:#f2c66d; --coral:#e79a8b; --lila:#c6a8e8;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:Nunito,system-ui,sans-serif;font-size:15px;line-height:1.5}
+header{padding:12px 16px;border-bottom:1px solid var(--line)}
+header h1{font-family:Caveat,cursive;font-size:1.6rem;margin:0;color:var(--chalk);line-height:1.1}
+header small{color:var(--muted);font-size:.8rem}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;border-bottom:1px solid var(--line)}
+nav button{white-space:nowrap;font-size:.8rem}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:6px 11px}
+button:hover{border-color:var(--amarillo)}
+button:disabled{opacity:.35;cursor:default}
+nav button.active{border-color:var(--amarillo);box-shadow:inset 0 -3px 0 var(--amarillo)}
+main{max-width:1050px;margin:0 auto;padding:16px 16px 50px;display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:860px){main{grid-template-columns:1.4fr 1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+h2{font-family:Caveat,cursive;font-size:1.8rem;margin:0 0 2px;color:var(--chalk);line-height:1.1}
+.meta{color:var(--muted);font-size:.85rem}
+h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:16px 0 6px}
+ul,ol{padding-left:1.2em;margin:.3em 0} li{margin:.3em 0}
+.ven{background:var(--panel2);border-left:4px solid var(--amarillo);border-radius:8px;padding:10px 12px;font-size:.92rem}
+.guion{font-style:italic;background:var(--panel2);border-radius:8px;padding:10px 12px}
+.cuidado{border:1px dashed var(--lila);border-radius:10px;padding:10px 12px;margin-top:12px;font-size:.92rem}
+.cuidado b{color:var(--lila)}
+.timer{text-align:center}
+.clock{font-family:Caveat,cursive;font-size:3.6rem;line-height:1;color:var(--chalk);margin:4px 0 10px}
+.clock.done{color:var(--coral)}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.agenda{width:100%;border-collapse:collapse;font-size:.88rem}
+.agenda td{padding:5px 6px;border-bottom:1px solid var(--line)}
+.agenda td:first-child{color:var(--muted);white-space:nowrap;width:76px}
+.agenda tr.act td{color:var(--amarillo);font-weight:800}
+.foot{display:flex;justify-content:space-between;margin-top:14px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Guía docente · Lo que traje, lo que me llevo</h1>
+  <small>120 minutos + visita a 1° año · Proyectá en paralelo la guía de alumnos</small>
+</header>
+<nav id="nav"></nav>
+<main>
+  <section class="card" id="main"></section>
+  <aside id="side"></aside>
+</main>
+
+<script>
+// v2.0 — Momentos (contenido docente)
+const M = [
+  { nav:"Preparación", titulo:"Antes de empezar", min:0,
+    ven:"—",
+    guion:"",
+    notas:[
+      "3 hojas A4 con título en letra grande, en distintas paredes y con espacio libre alrededor: «Lo que me pesó y no dije», «Lo que me hizo bien», «Lo que dejo acá».",
+      "Papelitos: hojas A4 cortadas en 4, tres por estudiante.",
+      "Cinta de papel cortada en tiras de antemano (pegar se hace rápido y todos a la vez).",
+      "Hojas A4 en blanco: una o dos por grupo, para el consejo a 1° año.",
+      "Fibras en una mesa central (que caminen a buscarlas).",
+      "Hojas A4 para la línea, tarjetas de cartulina (una por estudiante), lapiceras y sobres.",
+      "Música tranquila para los momentos personales (mejor sin letra en español) y otra más alegre para la pausa.",
+      "Coordiná con el docente de 1° año el día y la hora de la visita.",
+      "Bancos en ronda o en U, si se puede.",
+      "Pensá cómo armar los grupos de 4 o 5 (por afinidad funciona mejor).",
+      "No anticipes de qué se trata: «hoy hacemos algo distinto»."
+    ], cuidado:"" },
+  { nav:"Bienvenida", titulo:"Encuadre", min:5,
+    ven:"Las 4 reglas: tu hoja es tuya · sin firma ni nombres · podés pasar · queda acá.",
+    guion:"«Este es su último año. En unos meses se van. Hoy les propongo mirar qué trajeron hasta acá, qué se llevan, y dejarle algo a los que recién empiezan. Nadie tiene que mostrar nada que no quiera.»",
+    notas:["Escribí en el pizarrón: TRAJE · ME LLEVO · DEJO.","Hablá corto: si el encuadre se alarga, se vuelve clase.","Acordá una señal de pausa (levantar la mano)."],
+    cuidado:"La regla de «se puede pasar» es tu principal herramienta de cuidado. Decila en voz alta y cumplila siempre." },
+  { nav:"Mi línea", titulo:"Mi línea de estos años", min:15,
+    ven:"Línea de 1° a hoy con 5 momentos y el dibujo de ejemplo.",
+    guion:"«Hoja horizontal, una línea de punta a punta. Una palabra, un dibujo, una fecha. Nadie lo va a leer. Y guárdenla: la vamos a usar más tarde.»",
+    notas:["Música baja. Caminá sin leer lo que escriben.","Si alguien «no se acuerda de nada», que empiece por el momento de risa.","Recordá que la conserven: es la base del consejo a 1° año."],
+    cuidado:"«Un momento difícil» queda abierto a propósito: cada uno decide qué tan hondo va. No pidas ejemplos." },
+  { nav:"Lo guardado", titulo:"Lo que quedó guardado", min:10, extra:[["5:00",300]],
+    ven:"Escritura libre + «esto me enseñó…» + romper o guardar.",
+    guion:"«Lo que les dio bronca, lo que les dolió, lo que no dijeron. Sin corregir. Y al final, una sola línea: qué me enseñó eso. Después ustedes eligen si la rompen o la guardan.»",
+    notas:["Usá el botón 5:00 para la escritura; el resto es para la última línea y romper/guardar.","Romper es opcional: guardar en el sobre también es soltar."],
+    cuidado:"Es el momento más intenso. Si ves a alguien angustiado: acercate en voz baja, ofrecé salir un minuto a tomar agua (con un compañero de confianza si quiere) y conversá al terminar. No hace falta resolver nada en el momento: alcanza con que sepa que lo viste." },
+  { nav:"Pausa", titulo:"Pausa", min:5,
+    ven:"Agua, estirarse, respirar.",
+    guion:"«Cinco minutos de pausa. Después viene la parte que compartimos.»",
+    notas:["Separa lo íntimo de lo grupal: no la saltees.","Observá quién quedó movilizado y acercate si hace falta."],
+    cuidado:"" },
+  { nav:"El muro", titulo:"El muro", min:20, extra:[["10:00",600],["8:00",480]],
+    ven:"Las 3 hojas de la pared, el ejemplo de papelitos alrededor del título con ✓ y el «así no / así sí».",
+    guion:"«Lo de recién era solo para ustedes. Ahora les propongo dejar algo para el grupo, sin firma. Tienen 3 papelitos, uno para cada hoja de la pared. Escriban solo en los que quieran, en letra de imprenta. Nunca contra alguien con nombre.»",
+    notas:["Repartí 3 papelitos por estudiante.","Escribir en el banco: unos 8 minutos. Letra de imprenta: la cursiva se reconoce.","Pegar: todos a la vez cuando vos avisás, para que no se vea quién pega qué. Otra opción: doblan los papelitos, los ponen en 3 cajas o bolsas, se mezclan y cada uno pega papelitos al azar.","Los papelitos en blanco no se pegan.","Segunda vuelta, leer y marcar ✓: unos 8 minutos.","Los ✓ son la clave: ver que a otros les pasó lo mismo es lo que más descarga.","Vos también podés escribir algo."],
+    cuidado:"Si aparece algo que señala o lastima a alguien, retiralo con discreción y recordá la regla en general, sin buscar culpables. Si algo te preocupa por la seguridad de un estudiante, no lo trabajes frente al grupo: anotalo y hablalo después con dirección." },
+  { nav:"Lo que vemos", titulo:"Lo que vemos en el muro", min:10,
+    ven:"¿Qué se repite? ¿Qué te sorprendió leer?",
+    guion:"«Miren cuántos ✓ hay acá. Muchos lo vivieron, y quizás cada uno pensaba que le pasaba solo a él.»",
+    notas:["Empezá vos leyendo: rompe el hielo.","Si hay silencio, está bien: no llenes con explicaciones.","Describí lo que se ve («esto se repite mucho»), no interpretes."],
+    cuidado:"Cerrá leyendo frases de «Lo que me hizo bien», para no terminar en lo que pesa." },
+  { nav:"Mi consejo", titulo:"Mi consejo para 1° año", min:10,
+    ven:"Consigna de la tarjeta y ejemplo de consejo.",
+    guion:"«Del otro lado de la escuela hay chicos de 12 o 13 años que recién empiezan lo que ustedes terminan. ¿Qué les dirían? Usen lo que vivieron: hasta lo difícil puede servirle a otro.»",
+    notas:["Es el momento que convierte lo que dolió en algo útil para otro: sin apuro.","Por ahora las tarjetas se las quedan: las usan en el momento siguiente."],
+    cuidado:"Recordá quiénes van a leerlas: nada que asuste ni que exponga a alguien." },
+  { nav:"Consejo del grupo", titulo:"El consejo del grupo", min:15,
+    ven:"Pasos del trabajo en grupo y ejemplo de hoja A4 con el mensaje.",
+    guion:"«Cada grupo va a mandar una voz a 1° año. El que lo diga habla por todos, así que el mensaje tiene que ser de todos.»",
+    notas:["Pasá por los grupos solo para destrabar, no para corregir.","Si nadie quiere representar, el mensaje puede ir escrito y lo lee otro en la visita.","Recogé todas las tarjetas: las leés antes de la visita."],
+    cuidado:"Que nadie quede representando por presión del grupo. Si ves a alguien empujado, ofrecé la opción de ir de a dos." },
+  { nav:"Ensayo", titulo:"Ensayo", min:10,
+    ven:"Tips para hablar y frase de inicio.",
+    guion:"«No es para corregir. Es para que escuchemos cómo suena lo que construyeron entre todos.»",
+    notas:["Suele ser el momento más emotivo: no lo apures.","Solo sugerí cambios si algo no es adecuado para chicos de 12 o 13 años, y hacelo después, en privado."],
+    cuidado:"" },
+  { nav:"Lo que me llevo", titulo:"Lo que me llevo", min:15,
+    ven:"Ejemplo de sobre y de pizarrón con palabras.",
+    guion:"«Una sola cosa. Una persona, un momento, algo que aprendieron de ustedes. Y si quieren, una palabra al pizarrón: así nos llevamos también lo del grupo.»",
+    notas:["Sobres: los custodiás vos hasta fin de año, o se los llevan cerrados para la cena de egresados.","Sacale una foto al pizarrón (no a las personas) y compartila con el curso."],
+    cuidado:"" },
+  { nav:"Cierre", titulo:"Cierre", min:5,
+    ven:"«Gracias» y aviso de la visita.",
+    guion:"«No se llevan una nota. Se llevan dos horas para mirarse. Y la próxima clase, alguien de cada grupo va a dejar lo que construimos hoy. Gracias por prestarse.»",
+    notas:["Cortá ahí: un cierre largo le quita fuerza.","Recordá día y hora de la visita.","Quedate unos minutos en el aula: es cuando se acercan los que necesitan hablar."],
+    cuidado:"Retirá vos las hojas y los papelitos del muro. Si los conservás, guardalos en un sobre: no a la vista de otros cursos." },
+  { nav:"Visita a 1° año", titulo:"Visita a 1° año (clase siguiente)", min:20, visita:true,
+    ven:"Cómo va a ser la visita.",
+    guion:"«Ellos están terminando lo que ustedes recién empiezan. Vinieron a contarles lo que les hubiera gustado saber.»",
+    notas:["Antes: leé todas las tarjetas y apartá las que no sean adecuadas.","Orden: presentación breve, 1 minuto por representante y hoja pegada, preguntas de 1° año (al menos 8 minutos), reparto de tarjetas.","Si hay más alumnos que tarjetas, que las compartan de a dos.","Coordiná con el docente de 1° quién queda a cargo de las hojas.","Foto de las hojas en el aula, sin rostros de menores."],
+    cuidado:"Si un chico de 1° pregunta algo delicado (bullying, conflictos con docentes), que el representante responda en general y vos lo retomes después, a solas, si hace falta." }
+];
+
+// v2.0 — Estado
+let idx = 0, restante = 0, corriendo = false, intervalo = null;
+const $ = s => document.querySelector(s);
+const fmt = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+
+function agenda(){
+  let acum = 0;
+  const rows = M.map((m,i)=>{
+    if(!m.min) return "";
+    if(m.visita) return `<tr class="${i===idx?"act":""}"><td>Clase sig.</td><td>${m.titulo.replace(" (clase siguiente)","")} · ${m.min}'</td></tr>`;
+    const d = acum; acum += m.min;
+    return `<tr class="${i===idx?"act":""}"><td>${d}–${acum}'</td><td>${m.titulo}</td></tr>`;
+  }).join("");
+  return `<div class="card" style="margin-top:16px"><h3 style="margin-top:0">Agenda · ${acum} min</h3><table class="agenda">${rows}</table></div>`;
+}
+
+function renderNav(){
+  $("#nav").innerHTML = M.map((m,i)=>`<button class="${i===idx?"active":""}" data-i="${i}">${m.nav}${m.min?` · ${m.min}'`:""}</button>`).join("");
+  $("#nav").querySelectorAll("button").forEach(b=>b.onclick=()=>ir(+b.dataset.i));
+  $("#nav").children[idx].scrollIntoView({inline:"center",block:"nearest"});
+}
+
+function renderMain(){
+  const m = M[idx];
+  $("#main").innerHTML = `
+    <h2>${m.titulo}</h2>
+    <div class="meta">${m.min?`${m.min} minutos`:"Preparación"}</div>
+    ${m.ven!=="—"?`<h3>Lo que ven los alumnos</h3><div class="ven">${m.ven}</div>`:""}
+    ${m.guion?`<h3>Qué decir</h3><div class="guion">${m.guion}</div>`:""}
+    <h3>Notas</h3><ul>${m.notas.map(n=>`<li>${n}</li>`).join("")}</ul>
+    ${m.cuidado?`<div class="cuidado"><b>Cuidado del grupo:</b> ${m.cuidado}</div>`:""}
+    <div class="foot">
+      <button id="prev" ${idx===0?"disabled":""}>← Anterior</button>
+      <button id="next" ${idx===M.length-1?"disabled":""}>Siguiente →</button>
+    </div>`;
+  $("#prev").onclick=()=>ir(idx-1);
+  $("#next").onclick=()=>ir(idx+1);
+}
+
+function renderSide(){
+  const m = M[idx];
+  const timer = m.min ? `
+    <div class="card timer">
+      <h3 style="margin-top:0">Cronómetro</h3>
+      <div class="clock" id="clock">${fmt(restante)}</div>
+      <div class="row">
+        <button id="tPlay">${corriendo?"⏸ Pausar":"▶ Iniciar"}</button>
+        <button data-s="${m.min*60}">↺ ${m.min}'</button>
+        ${(m.extra||[]).map(([t,s])=>`<button data-s="${s}">${t}</button>`).join("")}
+      </div>
+    </div>` : "";
+  $("#side").innerHTML = timer + agenda();
+  if(m.min){
+    $("#tPlay").onclick=toggleTimer;
+    $("#side").querySelectorAll("button[data-s]").forEach(b=>b.onclick=()=>setTimer(+b.dataset.s));
+  }
+  actualizarClock();
+}
+
+// v2.0 — Cronómetro
+function setTimer(seg){ pararTimer(); restante=seg; renderSide(); }
+function pararTimer(){ corriendo=false; clearInterval(intervalo); }
+function toggleTimer(){
+  if(corriendo){ pararTimer(); }
+  else if(restante>0){
+    corriendo=true;
+    intervalo=setInterval(()=>{
+      restante--; actualizarClock();
+      if(restante<=0){ pararTimer(); beep(); renderSide(); }
+    },1000);
+  }
+  renderSide();
+}
+function actualizarClock(){
+  const c=$("#clock"); if(!c) return;
+  c.textContent=fmt(Math.max(restante,0));
+  c.classList.toggle("done",restante<=0);
+}
+function beep(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    [0,0.35,0.7].forEach(t=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.frequency.value=660; o.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.15,ctx.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t+0.3);
+      o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+0.3);
+    });
+  }catch(e){}
+}
+
+// v2.0 — Navegación
+function ir(i){
+  if(i<0||i>=M.length) return;
+  idx=i; pararTimer(); restante=M[idx].min*60;
+  renderNav(); renderMain(); renderSide();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowRight") ir(idx+1);
+  if(e.key==="ArrowLeft") ir(idx-1);
+  if(e.key===" " && M[idx].min){ e.preventDefault(); toggleTimer(); }
+});
+
+function main_guia_docente(){ ir(0); }
+main_guia_docente();
+</script>
+</body>
+</html>

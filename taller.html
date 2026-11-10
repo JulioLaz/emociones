@@ -1,0 +1,341 @@
+<!--
+'''
+GUÍA PARA ALUMNOS — TALLER "LO QUE TRAJE, LO QUE ME LLEVO"
+Pantalla para proyectar en el aula durante el taller de cierre de trayectoria.
+Muestra solo lo que ven los estudiantes: consigna, pasos y un ejemplo visual
+de cómo hacer cada actividad (dibujo de la línea, muro, tarjeta, hoja, sobre).
+No incluye tiempos ni notas docentes (van en docente.html).
+Navegación con botones o flechas del teclado. No guarda ni envía datos.
+
+Versiones:
+v1.0 — 2026-11-08 — Guía única docente/alumnos (60 min).
+v1.1 — 2026-11-08 — 120 min + consejo a 1° año + visita.
+v2.0 — 2026-11-09 — Separada: versión solo alumnos. Sin botones de modo
+                    (pizarrón fijo), sin tiempos, fuentes más chicas y
+                    ejemplos visuales en cada actividad.
+v2.1 — 2026-11-10 — Sin afiches: muro con 3 hojas A4 de título y papelitos
+                    pegados alrededor; consejo del grupo en hoja A4.
+'''
+-->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lo que traje, lo que me llevo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1f2a24; --panel:#26332c; --panel2:#2d3c34; --line:#3d5045;
+  --text:#eef1ea; --muted:#a9b8ad; --chalk:#f4f1e6;
+  --amarillo:#f2c66d; --celeste:#7fc8d8; --coral:#e79a8b; --verde:#9fd39a; --rosa:#f0a0c8;
+  --papel:#f6efdc; --tinta:#2f2a22; --postit:#fbe58f;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:Nunito,system-ui,sans-serif;font-size:15px;line-height:1.5}
+header{padding:12px 16px;border-bottom:1px solid var(--line);text-align:center}
+header h1{font-family:Caveat,cursive;font-size:1.7rem;margin:0;color:var(--chalk);line-height:1.1}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;border-bottom:1px solid var(--line)}
+nav button{white-space:nowrap;font-size:.82rem}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:6px 11px}
+button:hover{border-color:var(--amarillo)}
+button:disabled{opacity:.35;cursor:default}
+nav button.active{border-color:var(--amarillo);box-shadow:inset 0 -3px 0 var(--amarillo)}
+main{max-width:1050px;margin:0 auto;padding:16px 16px 50px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 9px;border-radius:999px;border:1px solid currentColor}
+.t-personal{color:var(--amarillo)} .t-grupo{color:var(--celeste)} .t-pausa{color:var(--verde)} .t-visita{color:var(--rosa)}
+h2{font-family:Caveat,cursive;font-size:2rem;margin:6px 0 2px;color:var(--chalk);line-height:1.1}
+.consigna{font-family:Caveat,cursive;font-size:1.45rem;line-height:1.3;color:var(--chalk);background:var(--panel2);border-left:4px solid var(--amarillo);border-radius:9px;padding:12px 14px;margin:12px 0}
+.cols{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:860px){.cols{grid-template-columns:1fr 1.25fr}}
+ol{padding-left:1.3em;margin:.3em 0} li{margin:.3em 0}
+h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:4px 0 8px}
+.ejemplo{background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px}
+.foot{display:flex;justify-content:space-between;margin-top:16px}
+
+/* SVG línea */
+.ej-svg{width:100%;height:auto;display:block}
+.s-line{stroke:var(--chalk);stroke-width:3;fill:none}
+.s-dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 4}
+.s-fill{fill:var(--chalk)}
+.s-year{font-family:Nunito,sans-serif;font-size:14px;fill:var(--muted);text-anchor:middle}
+.s-lbl{font-family:Caveat,cursive;font-size:21px;fill:var(--chalk);text-anchor:middle}
+.s-emo{font-size:17px;text-anchor:middle;dominant-baseline:central}
+.c1{fill:var(--amarillo)} .c2{fill:var(--coral)} .c3{fill:var(--celeste)} .c4{fill:var(--verde)} .c5{fill:var(--rosa)}
+
+/* Reglas */
+.reglas{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.regla{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+.regla .ico{font-size:1.6rem}
+.regla b{display:block;font-family:Caveat,cursive;font-size:1.3rem;color:var(--chalk)}
+.regla span{font-size:.82rem;color:var(--muted)}
+
+/* Hoja de papel */
+.hoja{background:var(--papel);color:var(--tinta);border-radius:6px;padding:14px 16px;font-family:Caveat,cursive;font-size:1.25rem;line-height:1.45;
+  background-image:repeating-linear-gradient(transparent 0 28px,#d9cfb5 28px 29px);box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.hoja .ensena{color:#a3331f;border-top:2px solid #a3331f;margin-top:8px;padding-top:4px}
+.opciones{display:flex;gap:10px;margin-top:12px}
+.opcion{flex:1;text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.9rem}
+.opcion .ico{font-size:1.5rem;display:block}
+
+/* Afiche y post-its */
+.afiche{background:#f3f0e8;border-radius:6px;padding:12px;color:var(--tinta);box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.afiche .tit{font-family:Caveat,cursive;font-size:1.4rem;text-align:center;border-bottom:2px solid #c9bfa6;margin-bottom:10px;padding-bottom:2px}
+.postits{display:flex;flex-wrap:wrap;gap:8px}
+.postit{background:var(--postit);font-family:Caveat,cursive;font-size:1.15rem;padding:8px 10px;border-radius:3px;max-width:170px;line-height:1.2;transform:rotate(-1.5deg)}
+.postit:nth-child(2n){transform:rotate(1.5deg);background:#ffd1c2}
+.postit:nth-child(3n){background:#c9ecf2}
+/* v2.1 — Pared con hoja A4 central y papelitos alrededor */
+.pared{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center;background:#e8e2d3;border-radius:8px;padding:12px}
+.pared .a4{grid-column:2;grid-row:2;background:#fff;color:var(--tinta);aspect-ratio:1/1.41;display:grid;place-items:center;text-align:center;font-family:Caveat,cursive;font-size:1.15rem;line-height:1.15;padding:8px;box-shadow:0 2px 6px rgba(0,0,0,.2);border-radius:2px}
+.pared .postit{max-width:none;font-size:.95rem;padding:6px 7px;color:var(--tinta)}
+.checks{display:block;color:#2e7d32;font-family:Nunito,sans-serif;font-size:.8rem;font-weight:800;margin-top:4px}
+.compara{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.compara div{border-radius:9px;padding:9px;font-size:.85rem}
+.mal{background:rgba(231,154,139,.15);border:1px solid var(--coral)}
+.bien{background:rgba(159,211,154,.15);border:1px solid var(--verde)}
+.compara i{display:block;font-family:Caveat,cursive;font-style:normal;font-size:1.15rem;color:var(--chalk)}
+
+/* Tarjeta */
+.tarjeta{background:var(--papel);color:var(--tinta);border-radius:8px;padding:16px;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.35;box-shadow:0 3px 10px rgba(0,0,0,.25);max-width:420px;margin:0 auto;border-top:6px solid var(--amarillo)}
+.tarjeta .firma{text-align:right;font-size:1.05rem;color:#6c6355;margin-top:8px}
+
+/* Sobre */
+.sobre{background:#e9dcc0;color:var(--tinta);border-radius:6px;position:relative;padding:44px 16px 14px;font-family:Caveat,cursive;font-size:1.2rem;max-width:380px;margin:0 auto;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.sobre::before{content:"";position:absolute;top:0;left:0;right:0;height:38px;background:linear-gradient(to bottom right,transparent 49%,#d6c6a3 50%) left/50% 100% no-repeat,linear-gradient(to bottom left,transparent 49%,#d6c6a3 50%) right/50% 100% no-repeat}
+.sobre small{display:block;font-family:Nunito,sans-serif;font-size:.75rem;color:#6c6355}
+.pizarron{margin-top:12px;background:#17201b;border:6px solid #6b4f34;border-radius:6px;padding:12px;text-align:center;font-family:Caveat,cursive;color:#f4f1e6;line-height:1.6}
+.pizarron span{display:inline-block;margin:0 8px}
+
+/* Tips */
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.tip{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;font-size:.88rem}
+.tip .ico{font-size:1.5rem;display:block}
+.dice{margin-top:12px;font-family:Caveat,cursive;font-size:1.25rem;color:var(--chalk);background:var(--panel);border-radius:9px;padding:10px 12px;border-left:4px solid var(--celeste)}
+</style>
+</head>
+<body>
+<header><h1>Lo que traje, lo que me llevo</h1></header>
+<nav id="nav"></nav>
+<main><section class="card" id="main"></section></main>
+
+<script>
+// v2.0 — Ejemplos visuales (HTML/SVG) por actividad
+const EJ = {
+  reglas: `
+    <div class="reglas">
+      <div class="regla"><div class="ico">🔒</div><b>Lo tuyo es tuyo</b><span>Tu hoja no la lee nadie si no querés.</span></div>
+      <div class="regla"><div class="ico">🙊</div><b>Sin firma, sin nombres</b><span>En el muro no se nombra a nadie.</span></div>
+      <div class="regla"><div class="ico">✋</div><b>Podés pasar</b><span>Sin explicar por qué.</span></div>
+      <div class="regla"><div class="ico">🏫</div><b>Queda acá</b><span>Lo que se lee hoy, no sale del aula.</span></div>
+    </div>`,
+
+  linea: `
+    <svg class="ej-svg" viewBox="0 0 800 270" role="img" aria-label="Ejemplo de línea de trayectoria">
+      <line x1="40" y1="140" x2="752" y2="140" class="s-line"/>
+      <polygon points="750,131 770,140 750,149" class="s-fill"/>
+      ${[["1°",60],["2°",190],["3°",320],["4°",450],["5°",580],["6°",710]].map(([t,x])=>
+        `<line x1="${x}" y1="132" x2="${x}" y2="148" class="s-line"/><text x="${x}" y="168" class="s-year">${t}</text>`).join("")}
+      <text x="772" y="122" class="s-year" style="text-anchor:end">hoy</text>
+      ${[
+        [125,"up","c1","🤝","El torneo de 2°"],
+        [300,"down","c2","🌧️","Casi repito 3°"],
+        [430,"up","c3","⭐","La profe que me escuchó"],
+        [560,"down","c4","💡","Puedo hablar en público"],
+        [690,"up","c5","😂","El viaje de 5°"]
+      ].map(([x,pos,c,emo,txt])=>{
+        const cy = pos==="up"?78:205, ly = pos==="up"?38:252;
+        const y1 = pos==="up"?96:140, y2 = pos==="up"?140:187;
+        return `<line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" class="s-dash"/>
+                <circle cx="${x}" cy="140" r="6" class="${c}"/>
+                <circle cx="${x}" cy="${cy}" r="18" class="${c}"/>
+                <text x="${x}" y="${cy}" class="s-emo">${emo}</text>
+                <text x="${x}" y="${ly}" class="s-lbl">${txt}</text>`;
+      }).join("")}
+    </svg>`,
+
+  guardado: `
+    <div class="hoja">
+      Me dio bronca cuando nadie me eligió para el grupo en 3°. No dije nada y me hice el que no me importaba.
+      También extraño a los que se fueron de la escuela. A veces sentí que tenía que ser otro para encajar…
+      <div class="ensena">Esto me enseñó: que no hace falta hacerme el fuerte todo el tiempo.</div>
+    </div>
+    <div class="opciones">
+      <div class="opcion"><span class="ico">✂️</span>La rompo</div>
+      <div class="opcion"><span class="ico">✉️</span>La guardo en el sobre</div>
+    </div>`,
+
+  pausa: `<div class="tips">
+      <div class="tip"><span class="ico">💧</span>Tomar agua</div>
+      <div class="tip"><span class="ico">🙆</span>Estirarse</div>
+      <div class="tip"><span class="ico">🌬️</span>Respirar</div>
+    </div>`,
+
+  muro: `
+    <div class="pared">
+      <div class="postit">Me costaba hablar en clase<span class="checks">✓✓✓✓✓</span></div>
+      <div class="postit">Sentirme solo en los recreos<span class="checks">✓✓✓</span></div>
+      <div class="postit">Los problemas de casa<span class="checks">✓✓✓✓</span></div>
+      <div class="postit">Miedo a no aprobar</div>
+      <div class="a4">Lo que me pesó y no dije</div>
+      <div class="postit">Que me importaba lo que pensaban<span class="checks">✓✓</span></div>
+      <div class="postit">Extrañar a un amigo que se fue</div>
+      <div class="postit">Hacerme el fuerte<span class="checks">✓✓✓</span></div>
+      <div class="postit">No pedir ayuda</div>
+    </div>
+    <div class="compara">
+      <div class="mal">❌ Así no<i>«Fulano siempre me molestaba»</i></div>
+      <div class="bien">✅ Así sí<i>«Me sentí molestado y no lo dije»</i></div>
+    </div>`,
+
+  vemos: `
+    <div class="afiche">
+      <div class="postits"><div class="postit">Me costaba hablar en clase por miedo a equivocarme<span class="checks">✓✓✓✓✓✓✓✓</span></div></div>
+    </div>
+    <div class="dice">Podés decir: «Me sorprendió que a tantos les pasara lo mismo que a mí…»</div>`,
+
+  consejo: `
+    <div class="tarjeta">
+      Algo que me hubiera gustado saber en 1° es que pedir ayuda no es de débiles. Y que los amigos de verdad aparecen solos, no hace falta forzar nada.
+      <div class="firma">— un egresado 2026</div>
+    </div>`,
+
+  grupo: `
+    <div class="afiche">
+      <div class="tit">Para los chicos de 1° año 💛</div>
+      <div style="font-family:Caveat,cursive;font-size:1.25rem;line-height:1.4">
+        No tengan miedo de equivocarse: todos nos equivocamos y acá seguimos.
+        Pidan ayuda cuando no entiendan, a un profe o a un compañero.
+        Y disfruten, porque se pasa más rápido de lo que creen.
+      </div>
+      <div style="text-align:right;font-family:Caveat,cursive;font-size:1.05rem;color:#6c6355;margin-top:6px">— Grupo 3 · Egresados 2026</div>
+    </div>
+    <div class="dice">Quién lo dice: alguien que se ofrezca. También pueden ir de a dos.</div>`,
+
+  ensayo: `
+    <div class="tips">
+      <div class="tip"><span class="ico">🐢</span>Hablá despacio</div>
+      <div class="tip"><span class="ico">👀</span>Mirá al público</div>
+      <div class="tip"><span class="ico">📜</span>Podés leer de la hoja</div>
+    </div>
+    <div class="dice">Para empezar: «Hola, somos de 6° y les queremos contar algo que aprendimos…»</div>`,
+
+  llevo: `
+    <div class="sobre">
+      Martina · abrir en noviembre 2027
+      <small>Adentro: lo que me llevo + una frase para mí</small>
+      <div style="margin-top:8px">«¿Seguís riéndote igual que en el viaje de 5°?»</div>
+    </div>
+    <div class="pizarron">
+      <span style="font-size:1.6rem">amigos</span><span style="font-size:1.2rem">paciencia</span><span style="font-size:1.4rem">risas</span>
+      <span style="font-size:1.1rem">fuerza</span><span style="font-size:1.5rem">familia</span><span style="font-size:1.2rem">aprender</span>
+    </div>`,
+
+  visita: `
+    <div class="tips">
+      <div class="tip"><span class="ico">🗣️</span>Cada representante dice el consejo de su grupo</div>
+      <div class="tip"><span class="ico">📌</span>Pegamos las hojas en su aula</div>
+      <div class="tip"><span class="ico">❓</span>Respondemos sus preguntas</div>
+      <div class="tip"><span class="ico">💌</span>Entregamos las tarjetas</div>
+    </div>`
+};
+
+// v2.0 — Actividades (solo contenido para alumnos)
+const PASOS = [
+  { nav:"Bienvenida", tipo:"grupo", tipoTxt:"Todos", titulo:"Antes de empezar",
+    consigna:"Hoy no se estudia ni se evalúa. Vamos a mirar para atrás, ver qué nos llevamos y dejarle algo a los que recién empiezan.",
+    pasos:["Tu hoja es solo tuya.","En el muro: sin firma y sin nombrar a nadie.","Podés pasar cuando quieras.","Lo que se lee hoy, queda acá."],
+    ejTit:"Las reglas", ej:EJ.reglas },
+  { nav:"Mi línea", tipo:"personal", tipoTxt:"Personal", titulo:"Mi línea de estos años",
+    consigna:"Dibujá una línea de 1° año a hoy y marcá 5 momentos.",
+    pasos:["🤝 Un momento en que me sentí parte del grupo.","🌧️ Un momento difícil (el que vos elijas).","⭐ Alguien de la escuela que me marcó para bien.","💡 Algo que aprendí de mí, no de una materia.","😂 Un momento en que me reí hasta no poder más."],
+    ejTit:"Ejemplo", ej:EJ.linea, ancho:true },
+  { nav:"Lo guardado", tipo:"personal", tipoTxt:"Personal", titulo:"Lo que quedó guardado",
+    consigna:"Escribí sin parar lo que te quedó guardado de estos años. Al final, una línea: «esto me enseñó…».",
+    pasos:["Escribí sin levantar la lapicera.","Si te trabás, escribí «no sé qué poner» hasta que salga algo.","Al final: «esto me enseñó…».","Vos elegís: la rompés o la guardás en el sobre.","Esta hoja no la lee nadie. Nunca."],
+    ejTit:"Ejemplo", ej:EJ.guardado },
+  { nav:"Pausa", tipo:"pausa", tipoTxt:"Pausa", titulo:"Pausa",
+    consigna:"Un respiro antes de seguir.",
+    pasos:["Agua, estirarse, respirar.","Después viene la parte que compartimos."],
+    ejTit:"", ej:EJ.pausa },
+  { nav:"El muro", tipo:"grupo", tipoTxt:"En grupo", titulo:"El muro",
+    consigna:"En tus 3 papelitos escribí lo que quieras para cada hoja de la pared. Sin firma y sin nombres de personas.",
+    pasos:["Hay 3 hojas en la pared: «Lo que me pesó y no dije», «Lo que me hizo bien», «Lo que dejo acá».","Un papelito para cada hoja, en letra de imprenta. Escribí solo en los que quieras.","Frases cortas: lo que sentiste, no a quién culpás.","Cuando el profe avisa, pegamos todos a la vez alrededor de cada hoja.","Segunda vuelta, en silencio: leé el muro y marcá un ✓ si algo te pasó a vos también."],
+    ejTit:"Ejemplo", ej:EJ.muro },
+  { nav:"Lo que vemos", tipo:"grupo", tipoTxt:"Todos", titulo:"Lo que vemos en el muro",
+    consigna:"¿Qué se repite? ¿Qué te sorprendió leer?",
+    pasos:["Escuchamos algunas frases con muchos ✓.","Quien quiera, comenta qué le llamó la atención.","Nadie tiene que decir qué escribió."],
+    ejTit:"Ejemplo", ej:EJ.vemos },
+  { nav:"Mi consejo", tipo:"personal", tipoTxt:"Personal", titulo:"Mi consejo para 1° año",
+    consigna:"Mirá tu línea. Elegí algo que viviste, bueno o difícil, y convertilo en un consejo para alguien que recién empieza.",
+    pasos:["Si te trabás: «Algo que me hubiera gustado saber en 1° es…»","O: «No se preocupen tanto por… y aprovechen…»","Firma opcional: tu nombre o «un egresado 2026».","Sin nombres de profes ni compañeros: son consejos, no confesiones."],
+    ejTit:"Ejemplo de tarjeta", ej:EJ.consejo },
+  { nav:"Consejo del grupo", tipo:"grupo", tipoTxt:"En grupo", titulo:"El consejo del grupo",
+    consigna:"Junten sus ideas en un solo mensaje para 1° año, escríbanlo en una hoja A4 y elijan quién lo va a decir.",
+    pasos:["Quien quiera lee su tarjeta al grupo.","Busquen lo que se repite o lo que más les gustó.","Escriban el mensaje en la hoja A4: letra grande, corto y como si hablaran.","Elijan al representante entre los que se ofrecen.","Entreguen las tarjetas al profe."],
+    ejTit:"Ejemplo de hoja", ej:EJ.grupo },
+  { nav:"Ensayo", tipo:"grupo", tipoTxt:"Todos", titulo:"Ensayo",
+    consigna:"Cada representante dice el consejo de su grupo frente al curso, como lo va a decir en 1° año.",
+    pasos:["De pie, con la hoja del grupo.","El curso escucha en silencio.","Aplauso al final de todos."],
+    ejTit:"Tips", ej:EJ.ensayo },
+  { nav:"Lo que me llevo", tipo:"personal", tipoTxt:"Personal + pizarrón", titulo:"Lo que me llevo",
+    consigna:"Escribí una sola cosa que te llevás y no te querés olvidar. Después, quien quiera pasa y escribe UNA palabra en el pizarrón.",
+    pasos:["En el reverso de tu línea: «lo que me llevo».","Al sobre, con una frase para vos dentro de un año.","Tu nombre afuera del sobre.","Una palabra al pizarrón (si querés)."],
+    ejTit:"Ejemplo", ej:EJ.llevo },
+  { nav:"Cierre", tipo:"grupo", tipoTxt:"Todos", titulo:"Gracias",
+    consigna:"No se llevan una nota. Se llevan un rato para mirarse, un sobre, y algo que van a dejar.",
+    pasos:["Miramos el pizarrón con todas las palabras.","La próxima clase: visita a 1° año."],
+    ejTit:"", ej:"" },
+  { nav:"Visita a 1° año", tipo:"visita", tipoTxt:"Próxima clase", titulo:"Visita a 1° año",
+    consigna:"Los egresados le dejan su consejo a los que recién empiezan.",
+    pasos:["Cada representante dice el consejo de su grupo.","Pegamos las hojas en su aula.","Los de 1° nos hacen preguntas.","Les entregamos las tarjetas."],
+    ejTit:"Cómo va a ser", ej:EJ.visita }
+];
+
+// v2.0 — Render y navegación
+let idx = 0;
+const $ = s => document.querySelector(s);
+
+function renderNav(){
+  $("#nav").innerHTML = PASOS.map((p,i)=>`<button class="${i===idx?"active":""}" data-i="${i}">${i?i+" · ":""}${p.nav}</button>`).join("");
+  $("#nav").querySelectorAll("button").forEach(b=>b.onclick=()=>ir(+b.dataset.i));
+  $("#nav").children[idx].scrollIntoView({inline:"center",block:"nearest"});
+}
+
+function renderMain(){
+  const p = PASOS[idx];
+  const ejemplo = p.ej ? `<div class="ejemplo">${p.ejTit?`<h3>${p.ejTit}</h3>`:""}${p.ej}</div>` : "";
+  const cuerpo = p.ancho
+    ? `<ol>${p.pasos.map(x=>`<li>${x}</li>`).join("")}</ol><div style="margin-top:14px">${ejemplo}</div>`
+    : `<div class="cols"><div><ol>${p.pasos.map(x=>`<li>${x}</li>`).join("")}</ol></div><div>${ejemplo}</div></div>`;
+  $("#main").innerHTML = `
+    <span class="tag t-${p.tipo}">${p.tipoTxt}</span>
+    <h2>${p.titulo}</h2>
+    <div class="consigna">${p.consigna}</div>
+    ${cuerpo}
+    <div class="foot">
+      <button id="prev" ${idx===0?"disabled":""}>← Anterior</button>
+      <button id="next" ${idx===PASOS.length-1?"disabled":""}>Siguiente →</button>
+    </div>`;
+  $("#prev").onclick=()=>ir(idx-1);
+  $("#next").onclick=()=>ir(idx+1);
+}
+
+function ir(i){
+  if(i<0||i>=PASOS.length) return;
+  idx=i; renderNav(); renderMain();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowRight") ir(idx+1);
+  if(e.key==="ArrowLeft") ir(idx-1);
+});
+
+function main_guia_alumnos(){ ir(0); }
+main_guia_alumnos();
+</script>
+</body>
+</html>

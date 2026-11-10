@@ -1,0 +1,221 @@
+<!--
+'''
+MEDITACIÓN PREVIA — TALLER "LO QUE TRAJE, LO QUE ME LLEVO"
+Guía breve e informal de meditación para que los estudiantes de último año
+la hagan desde el celular la noche anterior al taller. Formato "historias":
+pantallas que se pasan tocando o deslizando, con barra de progreso arriba,
+fondo de noche estrellada y un círculo de respiración animado.
+Funciona como adelanto (spoiler suave) del taller sin revelar las actividades.
+No guarda ni envía ningún dato.
+
+Versión: v1.0 — 2026-11-09 — Versión inicial (8 pantallas).
+'''
+-->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1026">
+<title>Antes de dormir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--txt:#f3f0ff;--suave:#b9b3d9;--acento:#ffd88a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;overscroll-behavior:none}
+body{font-family:Nunito,system-ui,sans-serif;color:var(--txt);background:#0b1026;user-select:none}
+#fondo{position:fixed;inset:0;transition:background 1.2s ease;z-index:0}
+#estrellas{position:fixed;inset:0;z-index:1;pointer-events:none}
+.estrella{position:absolute;border-radius:50%;background:#fff;animation:titilar var(--d) ease-in-out infinite;opacity:.2}
+@keyframes titilar{50%{opacity:.9}}
+.luna{position:fixed;top:72px;right:28px;width:54px;height:54px;border-radius:50%;box-shadow:-12px 6px 0 0 #ffe6a8;transform:rotate(-15deg);z-index:1;opacity:.85}
+
+#app{position:relative;z-index:2;height:100dvh;display:flex;flex-direction:column;max-width:520px;margin:0 auto}
+.barras{display:flex;gap:5px;padding:14px 14px 0;padding-top:max(14px,env(safe-area-inset-top))}
+.barra{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.22);overflow:hidden}
+.barra i{display:block;height:100%;width:0;background:#fff;transition:width .4s ease}
+.barra.llena i{width:100%}
+
+.pantalla{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 30px 40px;text-align:center}
+.emoji{font-size:2.6rem;margin-bottom:10px;animation:flotar 4s ease-in-out infinite}
+@keyframes flotar{50%{transform:translateY(-8px)}}
+.chico{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acento);margin-bottom:10px}
+h1{font-family:Caveat,cursive;font-size:2.5rem;line-height:1.05;margin:0 0 14px;font-weight:700}
+p{font-size:1.02rem;line-height:1.6;margin:0 0 12px;color:var(--txt)}
+p.suave{color:var(--suave);font-size:.92rem}
+.lista{list-style:none;padding:0;margin:8px 0 0;text-align:left;display:inline-block}
+.lista li{margin:10px 0;font-size:1rem}
+.preg{font-family:Caveat,cursive;font-size:1.55rem;line-height:1.25;color:var(--acento);margin:14px 0}
+.entra{animation:entrar .7s ease both}
+.entra > *{animation:entrar .8s ease both}
+.entra > *:nth-child(2){animation-delay:.15s}.entra > *:nth-child(3){animation-delay:.3s}
+.entra > *:nth-child(4){animation-delay:.45s}.entra > *:nth-child(5){animation-delay:.6s}.entra > *:nth-child(6){animation-delay:.75s}
+@keyframes entrar{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* Respiración */
+.resp{position:relative;width:190px;height:190px;margin:10px auto 18px;display:grid;place-items:center}
+.resp .aro{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,216,138,.55),rgba(167,139,250,.25) 60%,transparent 72%);
+  transform:scale(.55);transition:transform 4s ease-in-out}
+.resp.in .aro{transform:scale(1)}
+.resp span{position:relative;font-family:Caveat,cursive;font-size:1.7rem}
+.cuenta{color:var(--suave);font-size:.85rem}
+
+.pista{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;font-size:.8rem;color:var(--suave);animation:latir 2.2s ease-in-out infinite}
+@keyframes latir{50%{opacity:.35}}
+.btn{display:inline-block;margin-top:16px;padding:12px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:var(--txt);font:inherit;font-weight:800;cursor:pointer}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="fondo"></div>
+<div id="estrellas"></div>
+<div class="luna"></div>
+
+<div id="app">
+  <div class="barras" id="barras"></div>
+  <div class="pantalla" id="pantalla"></div>
+</div>
+<div class="pista" id="pista">tocá para seguir →</div>
+
+<script>
+// v1.0 — Pantallas (cada una con su fondo)
+const PANTALLAS = [
+  { fondo:"linear-gradient(180deg,#1b1446 0%,#0b1026 100%)", html:`
+      <div class="emoji">🌙</div>
+      <div class="chico">Mañana hacemos algo distinto</div>
+      <h1>Antes de dormir,<br>3 minutos para vos</h1>
+      <p>No es tarea. No se entrega. Nadie lo va a ver.</p>
+      <p class="suave">Solo pasá las pantallas, despacio.</p>` },
+
+  { fondo:"linear-gradient(180deg,#191a4d 0%,#0b1026 100%)", html:`
+      <div class="emoji">🛏️</div>
+      <h1>Ponete cómodo</h1>
+      <ul class="lista">
+        <li>📵 Silenciá las notificaciones</li>
+        <li>💡 Bajá la luz</li>
+        <li>🎧 Si querés, música tranqui</li>
+        <li>🫶 Acostate o sentate como te guste</li>
+      </ul>` },
+
+  { fondo:"linear-gradient(180deg,#1e1650 0%,#120b2e 100%)", respira:true, html:`
+      <div class="chico">Respirá conmigo</div>
+      <div class="resp" id="resp"><div class="aro"></div><span id="respTxt">inhalá…</span></div>
+      <p class="cuenta" id="respCuenta">respiración 1 de 4</p>
+      <p class="suave">Seguí el círculo. Cuando crece, tomás aire; cuando se achica, lo soltás.</p>` },
+
+  { fondo:"linear-gradient(180deg,#24164f 0%,#0f0c2a 100%)", html:`
+      <div class="emoji">🎒</div>
+      <h1>Viajá para atrás</h1>
+      <p>Cerrá los ojos un momento e imaginá tu primer día de 1° año.</p>
+      <div class="preg">¿Quién eras?<br>¿Qué llevabas en la mochila?<br>¿Qué te daba miedo?</div>
+      <p class="suave">No hace falta responder. Solo mirá esa imagen.</p>` },
+
+  { fondo:"linear-gradient(180deg,#2a1650 0%,#130c2c 100%)", html:`
+      <div class="emoji">✨</div>
+      <h1>Dejá que aparezcan</h1>
+      <p>De todos estos años, dejá que vengan solos:</p>
+      <ul class="lista">
+        <li>😂 una risa que no podías parar</li>
+        <li>🌧️ un momento difícil</li>
+        <li>⭐ alguien que te hizo bien</li>
+      </ul>
+      <p class="suave" style="margin-top:12px">No los juzgues. Solo saludalos.</p>` },
+
+  { fondo:"linear-gradient(180deg,#2e1747 0%,#140c26 100%)", html:`
+      <div class="emoji">🫧</div>
+      <h1>Lo que guardaste</h1>
+      <p>Quizás hay algo que nunca dijiste. Una bronca, una tristeza, algo que te callaste.</p>
+      <div class="preg">Mañana vas a tener un lugar para soltarlo,<br>sin que nadie sepa que fuiste vos.</div>
+      <p class="suave">Por hoy, solo reconocé que está ahí.</p>` },
+
+  { fondo:"linear-gradient(180deg,#311a45 0%,#160d24 100%)", html:`
+      <div class="emoji">🚪</div>
+      <h1>Alguien que recién entra</h1>
+      <p>Imaginá a alguien de 12 años cruzando la puerta de la escuela por primera vez. Nervioso, como estabas vos.</p>
+      <div class="preg">Si pudieras decirle una sola cosa,<br>¿qué le dirías?</div>
+      <p class="suave">Guardá esa respuesta. Mañana la vas a necesitar.</p>` },
+
+  { fondo:"linear-gradient(180deg,#1b1446 0%,#05070f 100%)", final:true, html:`
+      <div class="emoji">💫</div>
+      <h1>Eso es todo</h1>
+      <p>Traé mañana lo que apareció hoy. No hace falta nada más.</p>
+      <p class="suave">Nada de lo que pensaste se comparte si no querés.</p>
+      <div class="preg">Buenas noches 🌙</div>
+      <div><button class="btn" id="otraVez">↺ Volver a empezar</button></div>` }
+];
+
+// v1.0 — Estado
+let idx = 0, respTimer = null;
+const $ = s => document.querySelector(s);
+
+function crearEstrellas(){
+  const cont = $("#estrellas"); let html = "";
+  for(let i=0;i<70;i++){
+    const t = Math.random()*2+1;
+    html += `<div class="estrella" style="left:${Math.random()*100}%;top:${Math.random()*100}%;width:${t}px;height:${t}px;--d:${(Math.random()*3+2).toFixed(1)}s;animation-delay:${(Math.random()*3).toFixed(1)}s"></div>`;
+  }
+  cont.innerHTML = html;
+}
+
+function renderBarras(){
+  $("#barras").innerHTML = PANTALLAS.map((_,i)=>`<div class="barra ${i<=idx?"llena":""}"><i></i></div>`).join("");
+}
+
+function render(){
+  const p = PANTALLAS[idx];
+  $("#fondo").style.background = p.fondo;
+  const pant = $("#pantalla");
+  pant.classList.remove("entra"); void pant.offsetWidth;
+  pant.innerHTML = p.html; pant.classList.add("entra");
+  renderBarras();
+  $("#pista").style.display = p.final ? "none" : "block";
+  clearInterval(respTimer);
+  if(p.respira) iniciarRespiracion();
+  if(p.final) $("#otraVez").onclick = e => { e.stopPropagation(); ir(0); };
+}
+
+// v1.0 — Respiración: 4 ciclos de 4 s inhalar + 4 s exhalar
+function iniciarRespiracion(){
+  let fase = 0; // pares = inhalar, impares = exhalar
+  const resp = $("#resp"), txt = $("#respTxt"), cuenta = $("#respCuenta");
+  const paso = () => {
+    const inhala = fase % 2 === 0;
+    resp.classList.toggle("in", inhala);
+    txt.textContent = inhala ? "inhalá…" : "soltá…";
+    const n = Math.floor(fase/2) + 1;
+    cuenta.textContent = n <= 4 ? `respiración ${n} de 4` : "muy bien ✨ seguí cuando quieras";
+    if(n > 4){ clearInterval(respTimer); resp.classList.remove("in"); txt.textContent = "😌"; }
+    fase++;
+  };
+  setTimeout(paso, 300);
+  respTimer = setInterval(paso, 4000);
+}
+
+function ir(i){
+  if(i<0 || i>=PANTALLAS.length) return;
+  idx = i; render();
+}
+
+// v1.0 — Controles: tocar (derecha avanza, izquierda vuelve), deslizar, teclado
+let x0 = null;
+document.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, {passive:true});
+document.addEventListener("touchend", e => {
+  if(x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if(Math.abs(dx) > 50){ dx < 0 ? ir(idx+1) : ir(idx-1); e.preventDefault(); }
+});
+document.addEventListener("click", e => {
+  if(e.target.closest("button")) return;
+  e.clientX < window.innerWidth * 0.3 ? ir(idx-1) : ir(idx+1);
+});
+document.addEventListener("keydown", e => {
+  if(e.key === "ArrowRight" || e.key === " ") ir(idx+1);
+  if(e.key === "ArrowLeft") ir(idx-1);
+});
+
+function main_meditacion_previa(){ crearEstrellas(); render(); }
+main_meditacion_previa();
+</script>
+</body>
+</html>

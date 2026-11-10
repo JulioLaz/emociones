@@ -1,0 +1,57 @@
+<!--
+'''
+PORTADA — TALLER "LO QUE TRAJE, LO QUE ME LLEVO"
+Página de inicio del sitio (GitHub Pages) para los estudiantes de último año.
+Da acceso a la meditación previa (para la noche anterior) y a la guía del taller.
+La guía docente (docente.html) no se enlaza desde acá a propósito.
+No guarda ni envía datos.
+
+Versión: v1.0 — 2026-11-10 — Versión inicial (2 accesos: meditación y taller).
+'''
+-->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1026">
+<title>Lo que traje, lo que me llevo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--txt:#f3f0ff;--suave:#b9b3d9;--acento:#ffd88a}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:Nunito,system-ui,sans-serif;color:var(--txt);background:linear-gradient(180deg,#1b1446 0%,#0b1026 100%) fixed;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px}
+.wrap{max-width:460px;width:100%;text-align:center}
+.emoji{font-size:2.4rem}
+h1{font-family:Caveat,cursive;font-size:2.6rem;line-height:1.05;margin:8px 0 6px}
+p.sub{color:var(--suave);margin:0 0 26px}
+a.card{display:flex;gap:14px;align-items:center;text-align:left;text-decoration:none;color:var(--txt);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:16px 18px;margin-bottom:14px;transition:transform .15s ease,border-color .15s ease}
+a.card:hover,a.card:active{transform:translateY(-2px);border-color:var(--acento)}
+a.card .ico{font-size:2rem}
+a.card b{display:block;font-family:Caveat,cursive;font-size:1.6rem;line-height:1.1}
+a.card span{color:var(--suave);font-size:.9rem}
+footer{color:var(--suave);font-size:.78rem;margin-top:22px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="emoji">🌙</div>
+  <h1>Lo que traje,<br>lo que me llevo</h1>
+  <p class="sub">Taller de cierre · Egresados 2026</p>
+
+  <a class="card" href="meditacion.html">
+    <span class="ico">💫</span>
+    <div><b>Antes de dormir</b><span>3 minutos para la noche anterior al taller</span></div>
+  </a>
+
+  <a class="card" href="taller.html">
+    <span class="ico">✍️</span>
+    <div><b>El taller</b><span>Las actividades, paso a paso</span></div>
+  </a>
+
+  <footer>Nada de lo que hagas acá se guarda ni se envía.</footer>
+</main>
+</body>
+</html>
