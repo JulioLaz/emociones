@@ -1,0 +1,250 @@
+<!--
+'''
+CUENTO DEL BAMBÚ — GUÍA PARA EL NARRADOR
+Página para que el alumno de 6° que cuenta el cuento en la visita a 1° año
+lo estudie desde el celular. Incluye: cómo prepararlo, el cuento con marcas
+de pausa y gestos, el mensaje final para 1° año, las frases clave para
+recordarlo, un modo práctica (solo frases clave) y una lámina con el dibujo
+de las raíces año por año para mostrar o copiar en el pizarrón.
+No guarda ni envía datos.
+
+Versión: v1.0 — 2026-11-12 — Versión inicial.
+'''
+-->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14231a">
+<title>El cuento del bambú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14231a; --panel:#1c2f23; --panel2:#24392b; --line:#33503c;
+  --text:#eef3ea; --muted:#a8bfae; --chalk:#f4f1e6;
+  --verde:#8fd18a; --tierra:#b98a5a; --amarillo:#f2c66d; --coral:#e79a8b;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:Nunito,system-ui,sans-serif;font-size:16px;line-height:1.6}
+main{max-width:640px;margin:0 auto;padding:20px 16px 60px}
+header{text-align:center;margin-bottom:18px}
+header .emoji{font-size:2.4rem}
+h1{font-family:Caveat,cursive;font-size:2.5rem;line-height:1.05;margin:4px 0;color:var(--chalk)}
+header p{color:var(--muted);margin:0;font-size:.92rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+h2{font-family:Caveat,cursive;font-size:1.7rem;margin:0 0 8px;color:var(--verde);line-height:1.1}
+ol,ul{padding-left:1.2em;margin:.3em 0} li{margin:.35em 0}
+.tabs{display:flex;gap:8px;margin-bottom:14px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:2}
+.tabs button{flex:1;font:inherit;font-size:.88rem;font-weight:800;cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:9px 6px}
+.tabs button.on{background:var(--verde);color:#10200f;border-color:var(--verde)}
+.vista{display:none}.vista.on{display:block}
+
+/* Cuento */
+.cuento p{font-size:1.08rem;margin:0 0 14px}
+.cuento .dialogo{font-style:italic;color:var(--chalk)}
+.marca{display:inline-block;font-size:.74rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:1px 8px;margin:0 2px;vertical-align:middle;white-space:nowrap}
+.pausa{background:rgba(242,198,109,.15);color:var(--amarillo);border:1px solid var(--amarillo)}
+.gesto{background:rgba(143,209,138,.15);color:var(--verde);border:1px solid var(--verde)}
+.dibujo{background:rgba(185,138,90,.18);color:#e0b98c;border:1px solid var(--tierra)}
+.puente{background:var(--panel2);border-left:4px solid var(--amarillo);border-radius:10px;padding:14px;margin-top:6px}
+.puente p{font-size:1.08rem}
+.clave{display:grid;gap:8px;counter-reset:c}
+.clave div{background:var(--panel2);border-radius:10px;padding:10px 12px 10px 44px;position:relative;font-family:Caveat,cursive;font-size:1.4rem;line-height:1.2;color:var(--chalk)}
+.clave div::before{counter-increment:c;content:counter(c);position:absolute;left:12px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:50%;background:var(--verde);color:#10200f;font-family:Nunito,sans-serif;font-size:.8rem;font-weight:800;display:grid;place-items:center}
+
+/* Lámina */
+.lamina svg{width:100%;height:auto;display:block;background:#0f1a13;border-radius:10px}
+.s-tierra{fill:#3b2a1c}
+.s-suelo{stroke:#d9b48a;stroke-width:3}
+.s-raiz{stroke:#e0b98c;stroke-width:2.2;fill:none;stroke-linecap:round}
+.s-txt{font-family:Nunito,sans-serif;font-size:13px;fill:#c7d6cb;text-anchor:middle}
+.s-cielo{font-family:Caveat,cursive;font-size:20px;fill:#f4f1e6;text-anchor:middle}
+.s-tallo{fill:#8fd18a}
+.s-nudo{stroke:#5d9a59;stroke-width:2}
+.s-hoja{fill:#6fbf6a}
+.leyenda{font-size:.88rem;color:var(--muted);margin-top:10px}
+.foot{text-align:center;color:var(--muted);font-size:.8rem;margin-top:20px}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="emoji">🎋</div>
+    <h1>El cuento del bambú</h1>
+    <p>Para contar en 1° año · unos 3 minutos</p>
+  </header>
+
+  <div class="tabs">
+    <button class="on" data-v="preparar">📋 Preparar</button>
+    <button data-v="cuento">📖 Cuento</button>
+    <button data-v="practica">🎯 Practicar</button>
+    <button data-v="lamina">🖍️ Dibujo</button>
+  </div>
+
+  <!-- PREPARAR -->
+  <section class="vista on" id="v-preparar">
+    <div class="card">
+      <h2>Cómo aprenderlo</h2>
+      <ol>
+        <li><b>Leelo entero 3 veces</b>, una en voz alta.</li>
+        <li><b>Aprendé las 6 frases clave</b> (pestaña 🎯). No hace falta memorizar palabra por palabra: contalo con tus palabras.</li>
+        <li><b>Ensayalo frente a alguien</b>: un amigo, tu familia o frente al espejo.</li>
+        <li>Lo que sí conviene saber de memoria es <b>el mensaje final</b>, al pie del cuento.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2>El día de la visita</h2>
+      <ul>
+        <li>🎋 Si podés, <b>llevá un pedazo de caña</b> y mostralo al empezar: así todos saben de qué hablás.</li>
+        <li>🖍️ Pedile a un compañero que <b>dibuje en el pizarrón</b> mientras contás (pestaña 🖍️).</li>
+        <li>🐢 <b>Hablá despacio</b>. Las pausas son parte del cuento: el silencio genera intriga.</li>
+        <li>👀 <b>Mirá a los chicos</b>, no al piso. Podés tener el celu en la mano por si te trabás.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Las marcas del cuento</h2>
+      <p style="margin:0">
+        <span class="marca pausa">pausa</span> hacé silencio 2 segundos ·
+        <span class="marca gesto">gesto</span> movimiento con el cuerpo ·
+        <span class="marca dibujo">dibujo</span> aviso para tu compañero del pizarrón
+      </p>
+    </div>
+  </section>
+
+  <!-- CUENTO -->
+  <section class="vista" id="v-cuento">
+    <div class="card cuento">
+      <h2>El bambú</h2>
+      <p>Hace mucho tiempo, en un pueblo de Japón, vivía un campesino que un día decidió plantar una semilla de bambú.
+        <span class="marca gesto">mostrá la caña</span></p>
+      <p>¿Saben qué es el bambú? Es como esta caña, como las de los cercos o las cañas de pescar. Pero el bambú puede crecer tan alto… como un edificio de diez pisos.
+        <span class="marca gesto">mano bien arriba</span></p>
+      <p>El campesino plantó la semilla, la regó, y esperó.
+        <span class="marca dibujo">línea de la tierra</span></p>
+      <p>Pasó un año. <span class="marca pausa">pausa</span> Nada. Ni una hojita.
+        <span class="marca dibujo">raíces año 1</span></p>
+      <p>Los vecinos se reían: <span class="dialogo">«¡Esa semilla está muerta!»</span><br>
+        Pero él la siguió regando, todos los días.</p>
+      <p>Pasó el segundo año. Nada. <span class="marca dibujo">año 2</span><br>
+        El tercero. Nada. <span class="marca dibujo">año 3</span><br>
+        El cuarto… el quinto… <span class="marca pausa">pausa</span> nada.
+        <span class="marca dibujo">años 4 y 5</span></p>
+      <p>Los vecinos ya ni se reían. Le tenían lástima:
+        <span class="dialogo">«Dejá eso. Estás perdiendo el tiempo.»</span><br>
+        Y él, todos los días: agua… y paciencia.</p>
+      <p>Hasta que en el sexto año <span class="marca pausa">pausa</span> asomó un brotecito.
+        <span class="marca gesto">agachate</span></p>
+      <p>Y en solo seis semanas, ese brote creció, y creció, y creció…
+        <span class="marca gesto">levantate de a poco</span>
+        hasta pasar los treinta metros de altura.
+        <span class="marca dibujo">el bambú altísimo</span></p>
+      <p>Los vecinos no lo podían creer: <span class="dialogo">«¿Cómo creció tan rápido?»</span></p>
+      <p>Y el campesino les respondió:
+        <span class="dialogo">«No creció en seis semanas. Creció durante seis años. Todo ese tiempo estuvo echando raíces bajo la tierra. Raíces largas y fuertes, para poder sostener algo tan alto.»</span>
+        <span class="marca pausa">pausa</span></p>
+      <p><span class="dialogo">«Lo que ustedes no veían… también era crecer.»</span>
+        <span class="marca gesto">señalá las raíces del dibujo</span></p>
+    </div>
+
+    <div class="card puente">
+      <h2>El mensaje para 1° año</h2>
+      <p>Chicos, hoy ustedes son esa semilla.</p>
+      <p>Va a haber días en que sientan que no avanzan: una materia que no sale, un año que cuesta, alguien que les dice que no van a poder.</p>
+      <p>Esos días también están echando raíces.</p>
+      <p>Nosotros estuvimos ahí. Hace seis años éramos ustedes. Y hoy estamos acá.</p>
+      <p style="margin-bottom:0"><b>No se apuren. No se rindan. Rieguen todos los días.</b></p>
+    </div>
+  </section>
+
+  <!-- PRACTICAR -->
+  <section class="vista" id="v-practica">
+    <div class="card">
+      <h2>Las 6 frases clave</h2>
+      <p style="margin-top:0;color:var(--muted);font-size:.92rem">Tapá el cuento y contalo usando solo estas frases como guía.</p>
+      <div class="clave">
+        <div>Un campesino planta una semilla de bambú (mostrar la caña).</div>
+        <div>Año 1: nada. Los vecinos se ríen.</div>
+        <div>Años 2, 3, 4, 5: nada. Le dicen que pierde el tiempo.</div>
+        <div>Él riega todos los días: agua y paciencia.</div>
+        <div>Año 6: un brote, y en 6 semanas, más de 30 metros.</div>
+        <div>«Creció 6 años: eran las raíces. Lo que no se ve también es crecer.»</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Y cerrás con…</h2>
+      <p style="margin:0;font-family:Caveat,cursive;font-size:1.5rem;line-height:1.25;color:var(--chalk)">«Hoy ustedes son esa semilla. Nosotros estuvimos ahí. No se apuren. No se rindan. Rieguen todos los días.»</p>
+    </div>
+  </section>
+
+  <!-- LÁMINA -->
+  <section class="vista lamina" id="v-lamina">
+    <div class="card">
+      <h2>Para tu compañero del pizarrón</h2>
+      <svg viewBox="0 0 600 420" role="img" aria-label="Bambú: raíces que crecen año tras año y la planta alta en el año 6">
+        <rect x="0" y="180" width="600" height="240" class="s-tierra"/>
+        <line x1="0" y1="180" x2="600" y2="180" class="s-suelo"/>
+        <text x="300" y="30" class="s-cielo">Lo que se ve</text>
+        <text x="300" y="410" class="s-cielo" style="fill:#e0b98c">Lo que no se ve</text>
+        <g id="anios"></g>
+      </svg>
+      <p class="leyenda">Arriba de la línea no aparece nada durante 5 años, mientras abajo las raíces crecen cada vez más. En el año 6 aparece el bambú altísimo. Dibujá cada año cuando el narrador lo nombra.</p>
+    </div>
+  </section>
+
+  <p class="foot">Cuento tradicional, adaptado para el taller «Lo que traje, lo que me llevo».</p>
+</main>
+
+<script>
+// v1.0 — Pestañas
+function activarPestanias(){
+  document.querySelectorAll(".tabs button").forEach(b=>{
+    b.onclick = () => {
+      document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on", x===b));
+      document.querySelectorAll(".vista").forEach(v=>v.classList.toggle("on", v.id==="v-"+b.dataset.v));
+      window.scrollTo({top:0,behavior:"smooth"});
+    };
+  });
+}
+
+// v1.0 — Lámina: raíces que crecen año a año (1 a 5) y bambú en el año 6
+function raices(cx, nivel){
+  // nivel 1..6 → más ramas y más profundidad
+  const prof = 30 + nivel*30, ramas = [];
+  ramas.push(`M${cx} 180 L${cx} ${180+prof}`);
+  for(let i=1;i<=nivel;i++){
+    const y = 180 + i*(prof/(nivel+1)), largo = 8 + i*5;
+    ramas.push(`M${cx} ${y} q ${-largo} ${largo*0.5} ${-largo*1.6} ${largo*1.2}`);
+    ramas.push(`M${cx} ${y+6} q ${largo} ${largo*0.5} ${largo*1.6} ${largo*1.2}`);
+  }
+  return `<path d="${ramas.join(" ")}" class="s-raiz"/>`;
+}
+function bambu(cx){
+  let g = `<rect x="${cx-6}" y="45" width="12" height="135" rx="5" class="s-tallo"/>`;
+  for(let y=70;y<180;y+=24) g += `<line x1="${cx-7}" y1="${y}" x2="${cx+7}" y2="${y}" class="s-nudo"/>`;
+  [[-1,70],[1,95],[-1,120],[1,60],[-1,150]].forEach(([d,y])=>{
+    g += `<path d="M${cx} ${y} q ${d*16} -10 ${d*34} -4 q ${d*-16} 8 ${d*-34} 4 z" class="s-hoja"/>`;
+  });
+  return g;
+}
+function dibujarLamina(){
+  let g = "";
+  const xs = [55,145,235,325,415,525];
+  xs.forEach((cx,i)=>{
+    const anio = i+1;
+    if(anio===6) g += bambu(cx);
+    else g += `<text x="${cx}" y="168" class="s-txt">nada</text>`;
+    g += raices(cx, anio);
+    g += `<text x="${cx}" y="${anio===6?"36":"150"}" class="s-txt" style="font-weight:800;fill:${anio===6?"#8fd18a":"#c7d6cb"}">${anio===6?"":"año "+anio}</text>`;
+  });
+  g += `<text x="525" y="26" class="s-txt" style="font-weight:800;fill:#8fd18a">año 6</text>`;
+  document.getElementById("anios").innerHTML = g;
+}
+
+function main_cuento_bambu(){ activarPestanias(); dibujarLamina(); }
+main_cuento_bambu();
+</script>
+</body>
+</html>
