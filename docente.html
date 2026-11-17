@@ -17,6 +17,10 @@ v2.1 — 2026-11-10 — Sin afiches: muro con 3 hojas A4 de título y papelitos
 v2.3 — 2026-11-10 — Recuadro "Tu ejemplo primero" (modelado docente de
                     30 s) y notas sobre las ayudas desplegables de la guía
                     de alumnos.
+v2.4 — 2026-11-17 — Nuevo momento "El cuento del bambú" (8 min) antes de
+                    las tarjetas. "Mis tarjetas para 1°" (15 min): 3 tarjetas
+                    por alumno y cálculo de cantidad. Tiempos reajustados a
+                    120 min. Visita de 25 min con cuento y entrega en mano.
 '''
 -->
 <!doctype html>
@@ -90,10 +94,12 @@ const M = [
     notas:[
       "3 hojas A4 con título en letra grande, en distintas paredes y con espacio libre alrededor: «Lo que me pesó y no dije», «Lo que me hizo bien», «Lo que dejo acá».",
       "Papelitos: hojas A4 cortadas en 4, tres por estudiante.",
+      "Tarjetas para 1°: averiguá cuántos alumnos tiene 1° año. Tarjetas por alumno de 6° = alumnos de 1° ÷ alumnos de 6°, redondeado para arriba, más 1 de repuesto (por defecto, 3). Cortá A4 en 4.",
+      "Cuento: elegí al narrador (y a un compañero que dibuje) unos días antes y mandale el link juliolaz.github.io/emociones/cuento.html.",
       "Cinta de papel cortada en tiras de antemano (pegar se hace rápido y todos a la vez).",
       "Hojas A4 en blanco: una o dos por grupo, para el consejo a 1° año.",
       "Fibras en una mesa central (que caminen a buscarlas).",
-      "Hojas A4 para la línea, tarjetas de cartulina (una por estudiante), lapiceras y sobres.",
+      "Hojas A4 para la línea, lapiceras y sobres. Un pedazo de caña, si conseguís, para el cuento.",
       "Música tranquila para los momentos personales (mejor sin letra en español) y otra más alegre para la pausa.",
       "Coordiná con el docente de 1° año el día y la hora de la visita.",
       "Bancos en ronda o en U, si se puede.",
@@ -105,7 +111,7 @@ const M = [
     guion:"«Este es su último año. En unos meses se van. Hoy les propongo mirar qué trajeron hasta acá, qué se llevan, y dejarle algo a los que recién empiezan. Nadie tiene que mostrar nada que no quiera.»",
     notas:["Escribí en el pizarrón: TRAJE · ME LLEVO · DEJO.","Hablá corto: si el encuadre se alarga, se vuelve clase.","Acordá una señal de pausa (levantar la mano)."],
     cuidado:"La regla de «se puede pasar» es tu principal herramienta de cuidado. Decila en voz alta y cumplila siempre." },
-  { nav:"Mi línea", titulo:"Mi línea de estos años", min:15,
+  { nav:"Mi línea", titulo:"Mi línea de estos años", min:12,
     ven:"Línea de 1° a hoy con 5 momentos y el dibujo de ejemplo.",
     guion:"«Hoja horizontal, una línea de punta a punta. Una palabra, un dibujo, una fecha. Nadie lo va a leer. Y guárdenla: la vamos a usar más tarde.»",
     modelo:"Antes de que empiecen, dibujá en el pizarrón una línea corta con 2 momentos tuyos de la secundaria: uno lindo y uno difícil pero liviano (una materia que te costó, un cambio de escuela). Una palabra o un dibujo cada uno.",
@@ -122,34 +128,39 @@ const M = [
     guion:"«Cinco minutos de pausa. Después viene la parte que compartimos.»",
     notas:["Separa lo íntimo de lo grupal: no la saltees.","Observá quién quedó movilizado y acercate si hace falta."],
     cuidado:"" },
-  { nav:"El muro", titulo:"El muro", min:20, extra:[["10:00",600],["8:00",480]],
+  { nav:"El muro", titulo:"El muro", min:17, extra:[["8:00",480],["7:00",420]],
     ven:"Las 3 hojas de la pared, el ejemplo de papelitos alrededor del título con ✓ y el «así no / así sí».",
     guion:"«Lo de recién era solo para ustedes. Ahora les propongo dejar algo para el grupo, sin firma. Tienen 3 papelitos, uno para cada hoja de la pared. Escriban solo en los que quieran, en letra de imprenta. Nunca contra alguien con nombre.»",
     modelo:"Escribí vos un papelito en el momento, leelo en voz alta y pegalo primero. Por ejemplo, en «Lo que me hizo bien»: «Los mates en la sala de profes».",
-    notas:["Repartí 3 papelitos por estudiante.","En pantalla quedan 2 frases de ejemplo por hoja («Arrancá así»).","Escribir en el banco: unos 8 minutos. Letra de imprenta: la cursiva se reconoce.","Pegar: todos a la vez cuando vos avisás, para que no se vea quién pega qué. Otra opción: doblan los papelitos, los ponen en 3 cajas o bolsas, se mezclan y cada uno pega papelitos al azar.","Los papelitos en blanco no se pegan.","Segunda vuelta, leer y marcar ✓: unos 8 minutos.","Los ✓ son la clave: ver que a otros les pasó lo mismo es lo que más descarga.","Vos también podés escribir algo."],
+    notas:["Repartí 3 papelitos por estudiante.","En pantalla quedan 2 frases de ejemplo por hoja («Arrancá así»).","Escribir en el banco: unos 8 minutos. Letra de imprenta: la cursiva se reconoce.","Pegar: todos a la vez cuando vos avisás, para que no se vea quién pega qué. Otra opción: doblan los papelitos, los ponen en 3 cajas o bolsas, se mezclan y cada uno pega papelitos al azar.","Los papelitos en blanco no se pegan.","Segunda vuelta, leer y marcar ✓: unos 7 minutos.","Los ✓ son la clave: ver que a otros les pasó lo mismo es lo que más descarga.","Vos también podés escribir algo."],
     cuidado:"Si aparece algo que señala o lastima a alguien, retiralo con discreción y recordá la regla en general, sin buscar culpables. Si algo te preocupa por la seguridad de un estudiante, no lo trabajes frente al grupo: anotalo y hablalo después con dirección." },
-  { nav:"Lo que vemos", titulo:"Lo que vemos en el muro", min:10,
+  { nav:"Lo que vemos", titulo:"Lo que vemos en el muro", min:8,
     ven:"¿Qué se repite? ¿Qué te sorprendió leer?",
     guion:"«Miren cuántos ✓ hay acá. Muchos lo vivieron, y quizás cada uno pensaba que le pasaba solo a él.»",
     notas:["Empezá vos leyendo: rompe el hielo.","Si hay silencio, está bien: no llenes con explicaciones.","Describí lo que se ve («esto se repite mucho»), no interpretes."],
     cuidado:"Cerrá leyendo frases de «Lo que me hizo bien», para no terminar en lo que pesa." },
-  { nav:"Mi consejo", titulo:"Mi consejo para 1° año", min:10,
-    ven:"Consigna de la tarjeta y ejemplo de consejo.",
-    guion:"«Del otro lado de la escuela hay chicos de 12 o 13 años que recién empiezan lo que ustedes terminan. ¿Qué les dirían? Usen lo que vivieron: hasta lo difícil puede servirle a otro.»",
-    modelo:"Contá el consejo que te hubiera gustado escuchar a vos en 1° año. Una o dos frases, nada más.",
-    notas:["Es el momento que convierte lo que dolió en algo útil para otro: sin apuro.","En pantalla hay 5 comienzos posibles y 2 tarjetas de ejemplo.","Por ahora las tarjetas se las quedan: las usan en el momento siguiente."],
+  { nav:"El bambú", titulo:"El cuento del bambú", min:8,
+    ven:"El dibujo de las raíces año por año y la frase «Lo que no se ve… también es crecer».",
+    guion:"«Antes de escribirles a los chicos de 1°, vamos a escuchar el cuento que les vamos a contar. Escuchen en silencio.»",
+    notas:["Lo cuenta el narrador elegido: es su ensayo real frente al curso. Si se traba, ayudalo con la pestaña 🎯 de cuento.html.","El compañero del pizarrón dibuja las raíces año por año mientras se cuenta.","Al terminar, una sola pregunta: «¿Cuáles fueron sus raíces en estos años?». Que la piensen, no hace falta que respondan.","Después se aplaude y se pasa directo a las tarjetas, con el clima del cuento."],
+    cuidado:"Si el narrador se pone nervioso, que lea desde el celular: alcanza con que lo cuente." },
+  { nav:"Mis tarjetas", titulo:"Mis tarjetas para 1° año", min:15,
+    ven:"Los 3 tipos de tarjeta (ánimo, consejo práctico, secreto de la escuela) con disparadores, frases de arranque y 5 ejemplos.",
+    guion:"«Cada uno va a escribir 3 tarjetas: una de ánimo, un consejo práctico y un secreto de la escuela. En la visita se las van a dar en mano a un chico de 1°. Piensen en el bambú: ustedes ya tienen raíces para compartir.»",
+    modelo:"Leé en voz alta una tarjeta tuya de cada tipo. Por ejemplo, de ánimo: «Vas a poder más de lo que creés».",
+    notas:["Repartí los papelitos: la cantidad que calculaste por alumno.","Que cada tarjeta sea de un tipo distinto: así no repiten la misma frase tres veces.","Los que terminen rápido pueden hacer las de repuesto.","Por ahora las tarjetas se las quedan: las usan en el momento siguiente."],
     cuidado:"Recordá quiénes van a leerlas: nada que asuste ni que exponga a alguien." },
   { nav:"Consejo del grupo", titulo:"El consejo del grupo", min:15,
     ven:"Pasos del trabajo en grupo y ejemplo de hoja A4 con el mensaje.",
     guion:"«Cada grupo va a mandar una voz a 1° año. El que lo diga habla por todos, así que el mensaje tiene que ser de todos.»",
     notas:["Pasá por los grupos solo para destrabar, no para corregir.","Si nadie quiere representar, el mensaje puede ir escrito y lo lee otro en la visita.","Recogé todas las tarjetas: las leés antes de la visita."],
     cuidado:"Que nadie quede representando por presión del grupo. Si ves a alguien empujado, ofrecé la opción de ir de a dos." },
-  { nav:"Ensayo", titulo:"Ensayo", min:10,
+  { nav:"Ensayo", titulo:"Ensayo", min:8,
     ven:"Tips para hablar y frase de inicio.",
     guion:"«No es para corregir. Es para que escuchemos cómo suena lo que construyeron entre todos.»",
     notas:["Suele ser el momento más emotivo: no lo apures.","Solo sugerí cambios si algo no es adecuado para chicos de 12 o 13 años, y hacelo después, en privado."],
     cuidado:"" },
-  { nav:"Lo que me llevo", titulo:"Lo que me llevo", min:15,
+  { nav:"Lo que me llevo", titulo:"Lo que me llevo", min:12,
     ven:"Ejemplo de sobre y de pizarrón con palabras.",
     guion:"«Una sola cosa. Una persona, un momento, algo que aprendieron de ustedes. Y si quieren, una palabra al pizarrón: así nos llevamos también lo del grupo.»",
     modelo:"Decí qué te llevás vos de este curso, en una frase, y escribí tu palabra primero en el pizarrón. Rompe el hielo para que pasen los demás.",
@@ -160,10 +171,10 @@ const M = [
     guion:"«No se llevan una nota. Se llevan dos horas para mirarse. Y la próxima clase, alguien de cada grupo va a dejar lo que construimos hoy. Gracias por prestarse.»",
     notas:["Cortá ahí: un cierre largo le quita fuerza.","Recordá día y hora de la visita.","Quedate unos minutos en el aula: es cuando se acercan los que necesitan hablar."],
     cuidado:"Retirá vos las hojas y los papelitos del muro. Si los conservás, guardalos en un sobre: no a la vista de otros cursos." },
-  { nav:"Visita a 1° año", titulo:"Visita a 1° año (clase siguiente)", min:20, visita:true,
+  { nav:"Visita a 1° año", titulo:"Visita a 1° año (clase siguiente)", min:25, visita:true,
     ven:"Cómo va a ser la visita.",
-    guion:"«Ellos están terminando lo que ustedes recién empiezan. Vinieron a contarles lo que les hubiera gustado saber.»",
-    notas:["Antes: leé todas las tarjetas y apartá las que no sean adecuadas.","Orden: presentación breve, 1 minuto por representante y hoja pegada, preguntas de 1° año (al menos 8 minutos), reparto de tarjetas.","Si hay más alumnos que tarjetas, que las compartan de a dos.","Coordiná con el docente de 1° quién queda a cargo de las hojas.","Foto de las hojas en el aula, sin rostros de menores."],
+    guion:"«Ellos están terminando lo que ustedes recién empiezan. Vinieron a contarles un cuento, lo que les hubiera gustado saber, y algo para cada uno.»",
+    notas:["Antes: leé todas las tarjetas y apartá las que no sean adecuadas.","Orden: presentación (2 min) · cuento del bambú con dibujo en el pizarrón (4 min) · experiencias: 1 minuto por representante, unido al cuento, y hoja pegada (8 min) · preguntas de 1° (6 min) · entrega de tarjetas en mano, una por una (5 min).","La entrega va al final: es lo último que viven los de 1° y se lo llevan en la mano.","Que cada egresado entregue sus tarjetas mirando al chico y diciendo «esta es para vos».","Si sobran tarjetas, que queden pegadas en el aula; si faltan, que las compartan de a dos.","Coordiná con el docente de 1° quién queda a cargo de las hojas.","Foto de las hojas en el aula, sin rostros de menores."],
     cuidado:"Si un chico de 1° pregunta algo delicado (bullying, conflictos con docentes), que el representante responda en general y vos lo retomes después, a solas, si hace falta." }
 ];
 

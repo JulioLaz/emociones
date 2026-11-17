@@ -21,6 +21,10 @@ v2.3 — 2026-11-10 — Ayudas para entrar en clima: desplegables con 3
                     disparadores por ítem en "Mi línea", 3 ejemplos y frases
                     de arranque en "Lo guardado", y "Arrancá así" en el muro,
                     el consejo y lo que me llevo.
+v2.4 — 2026-11-17 — Nueva actividad "El bambú" (cuento) antes de las
+                    tarjetas. "Mis tarjetas para 1°": 3 tarjetas por alumno
+                    (ánimo, consejo práctico, secreto de la escuela) con 5
+                    ejemplos. Visita con cuento y entrega en mano.
 '''
 -->
 <!doctype html>
@@ -84,6 +88,22 @@ h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--mu
 .carr .tabs button.on{border-color:var(--amarillo);color:var(--amarillo)}
 .carr .pane{display:none}
 .carr .pane.on{display:block}
+
+/* v2.4 — Tipos de tarjeta y cuento */
+.tj-tipo{display:inline-block;font-family:Nunito,sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#6c6355;margin-bottom:6px}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.tres div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 6px;text-align:center;font-size:.82rem;line-height:1.3}
+.tres .ico{font-size:1.5rem;display:block;margin-bottom:2px}
+.bambu{display:flex;justify-content:space-around;background:linear-gradient(#17201b 0 60%,#d9b48a 60% calc(60% + 2px),#3b2a1c calc(60% + 2px));border-radius:10px;height:190px;padding:0 8px}
+.bambu .col{display:flex;flex-direction:column;align-items:center;font-size:.72rem;color:#c7d6cb;flex:1}
+.bambu .arriba{height:60%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:4px}
+.bambu .abajo{height:40%;display:flex;justify-content:center;padding-top:2px}
+.bambu .tallo{width:10px;background:#8fd18a;border-radius:5px;margin:4px 0 -4px}
+.bambu .raiz{width:3px;background:#e0b98c;border-radius:2px}
+/* v2.4 — Evita que columnas y pestañas se desborden en el celular */
+.cols > div{min-width:0}
+.carr .tabs{flex-wrap:wrap}
+.chip{max-width:100%}
 
 /* SVG línea */
 .ej-svg{width:100%;height:auto;display:block}
@@ -251,16 +271,22 @@ const EJ = {
     </div>
     <div class="dice">Podés decir: «Me sorprendió que a tantos les pasara lo mismo que a mí…»</div>`,
 
+  // v2.4 — 5 ejemplos de tarjeta, con su tipo
   consejo: carrusel("consejo", [
-    `<div class="tarjeta">
-      Algo que me hubiera gustado saber en 1° es que pedir ayuda no es de débiles. Y que los amigos de verdad aparecen solos, no hace falta forzar nada.
-      <div class="firma">— un egresado 2026</div>
-    </div>`,
-    `<div class="tarjeta">
-      No dejen las materias para diciembre, después es peor 😅. Y hablen con todos, no solo con su grupito: a mis mejores amigos los conocí recién en 4°.
-      <div class="firma">— Lucas, 6° año</div>
-    </div>`
-  ]),
+    ["💪 Ánimo","Si hoy sentís que no entendés nada, tranqui: a todos nos pasó. Vas a poder.","un egresado 2026"],
+    ["💪 Ánimo","Sos como el bambú: lo que crecés ahora no se ve, pero está pasando.","Sofi, 6° año"],
+    ["🧭 Consejo práctico","Preguntá cuando no entiendas. El que pregunta aprende el doble.","un egresado 2026"],
+    ["🧭 Consejo práctico","No dejes las materias para diciembre. Hacete amigo de la carpeta al día 😅","Lucas, 6° año"],
+    ["🤫 Secreto de la escuela","Los profes que parecen más serios suelen ser los que más te ayudan si te acercás.","un egresado 2026"]
+  ].map(([tipo,txt,firma])=>`<div class="tarjeta"><span class="tj-tipo">${tipo}</span><br>${txt}<div class="firma">— ${firma}</div></div>`)),
+
+  // v2.4 — Cuento del bambú: raíces que crecen y el bambú en el año 6
+  cuento: `
+    <div class="bambu">
+      ${[1,2,3,4,5].map(a=>`<div class="col"><div class="arriba">año ${a}<br>nada</div><div class="abajo"><div class="raiz" style="height:${10+a*10}px"></div></div></div>`).join("")}
+      <div class="col" style="color:#8fd18a;font-weight:800"><div class="arriba">año 6<div class="tallo" style="height:80px"></div></div><div class="abajo"><div class="raiz" style="height:68px"></div></div></div>
+    </div>
+    <div class="dice">«Lo que no se ve… también es crecer.»</div>`,
 
   grupo: `
     <div class="afiche">
@@ -295,10 +321,10 @@ const EJ = {
 
   visita: `
     <div class="tips">
-      <div class="tip"><span class="ico">🗣️</span>Cada representante dice el consejo de su grupo</div>
-      <div class="tip"><span class="ico">📌</span>Pegamos las hojas en su aula</div>
+      <div class="tip"><span class="ico">🎋</span>Les contamos el cuento del bambú</div>
+      <div class="tip"><span class="ico">🗣️</span>Cada representante cuenta su experiencia y el consejo del grupo</div>
       <div class="tip"><span class="ico">❓</span>Respondemos sus preguntas</div>
-      <div class="tip"><span class="ico">💌</span>Entregamos las tarjetas</div>
+      <div class="tip"><span class="ico">💌</span>Entregamos las tarjetas en mano, una por una</div>
     </div>`
 };
 
@@ -340,14 +366,25 @@ const PASOS = [
     consigna:"¿Qué se repite? ¿Qué te sorprendió leer?",
     pasos:["Escuchamos algunas frases con muchos ✓.","Quien quiera, comenta qué le llamó la atención.","Nadie tiene que decir qué escribió."],
     ejTit:"Ejemplo", ej:EJ.vemos },
-  { nav:"Mi consejo", tipo:"personal", tipoTxt:"Personal", titulo:"Mi consejo para 1° año",
-    consigna:"Mirá tu línea. Elegí algo que viviste, bueno o difícil, y convertilo en un consejo para alguien que recién empieza.",
-    pasos:["Escribí un consejo corto, como si se lo dijeras en persona.","Firma opcional: tu nombre o «un egresado 2026».","Sin nombres de profes ni compañeros: son consejos, no confesiones."],
-    extra:arranca([["",["Algo que me hubiera gustado saber en 1° es…","No se preocupen tanto por… y aprovechen…","Lo que nadie te dice de la secundaria es…","Si pudiera volver a 1°, yo…","Animate a…"]]]),
-    ejTit:"Ejemplos de tarjeta", ej:EJ.consejo },
+  { nav:"El bambú", tipo:"grupo", tipoTxt:"Todos · Escuchamos", titulo:"El cuento del bambú",
+    consigna:"Escuchamos un cuento. Es el mismo que vamos a contarles a los chicos de 1° año.",
+    pasos:["Un compañero cuenta el cuento.","Escuchamos en silencio.","Pensá: ¿cuáles fueron tus raíces en estos años, eso que no se veía pero te hizo crecer?"],
+    ejTit:"El bambú", ej:EJ.cuento },
+  { nav:"Mis tarjetas", tipo:"personal", tipoTxt:"Personal", titulo:"Mis tarjetas para 1° año",
+    consigna:"Escribí 3 tarjetas, cada una de un tipo distinto. En la visita se las vas a dar en mano a un chico o una chica de 1° año.",
+    pasos:[
+      {t:"💪 <b>Ánimo:</b> una frase para que no tenga miedo.", ay:["Algo que te hubiera gustado escuchar el primer día.","Pensá en el bambú: «lo que no se ve también es crecer».","Algo que te dio fuerza en un año difícil."]},
+      {t:"🧭 <b>Consejo práctico:</b> algo concreto que le sirva.", ay:["Cómo organizarse con las materias.","Qué hacer cuando no entendés algo.","Cómo hacerse amigos sin forzar nada."]},
+      {t:"🤫 <b>Secreto de la escuela:</b> lo que nadie te cuenta.", ay:["Algo de los recreos, los actos o la semana del estudiante.","Algo de los profes que se descubre con el tiempo.","Algo que te sorprendió de la secundaria."]},
+      "Cortas, en letra clara. Firma opcional: tu nombre o «un egresado 2026».",
+      "Si el profe lo indica, hacé alguna más: tiene que alcanzar una para cada chico de 1°."
+    ],
+    extra:`<div class="tres"><div><span class="ico">💪</span>Ánimo</div><div><span class="ico">🧭</span>Consejo práctico</div><div><span class="ico">🤫</span>Secreto de la escuela</div></div>` +
+      arranca([["",["Algo que me hubiera gustado saber en 1° es…","No tengas miedo de…","Lo que nadie te dice de la secundaria es…","Si pudiera volver a 1°, yo…","Animate a…"]]]),
+    ejTit:"5 ejemplos de tarjeta", ej:EJ.consejo },
   { nav:"Consejo del grupo", tipo:"grupo", tipoTxt:"En grupo", titulo:"El consejo del grupo",
     consigna:"Junten sus ideas en un solo mensaje para 1° año, escríbanlo en una hoja A4 y elijan quién lo va a decir.",
-    pasos:["Quien quiera lee su tarjeta al grupo.","Busquen lo que se repite o lo que más les gustó.","Escriban el mensaje en la hoja A4: letra grande, corto y como si hablaran.","Elijan al representante entre los que se ofrecen.","Entreguen las tarjetas al profe."],
+    pasos:["Quien quiera lee una de sus tarjetas al grupo.","Busquen lo que se repite o lo que más les gustó.","Escriban el mensaje en la hoja A4: letra grande, corto y como si hablaran.","Elijan al representante entre los que se ofrecen.","Entreguen las tarjetas al profe."],
     ejTit:"Ejemplo de hoja", ej:EJ.grupo },
   { nav:"Ensayo", tipo:"grupo", tipoTxt:"Todos", titulo:"Ensayo",
     consigna:"Cada representante dice el consejo de su grupo frente al curso, como lo va a decir en 1° año.",
@@ -366,8 +403,8 @@ const PASOS = [
     pasos:["Miramos el pizarrón con todas las palabras.","La próxima clase: visita a 1° año."],
     ejTit:"", ej:"" },
   { nav:"Visita a 1° año", tipo:"visita", tipoTxt:"Próxima clase", titulo:"Visita a 1° año",
-    consigna:"Los egresados le dejan su consejo a los que recién empiezan.",
-    pasos:["Cada representante dice el consejo de su grupo.","Pegamos las hojas en su aula.","Los de 1° nos hacen preguntas.","Les entregamos las tarjetas."],
+    consigna:"Los egresados le dejan su experiencia, un cuento y una tarjeta a cada uno de los que recién empiezan.",
+    pasos:["Un compañero cuenta el cuento del bambú (otro lo dibuja en el pizarrón).","Cada representante cuenta 1 minuto de su experiencia y el consejo del grupo, y pega la hoja en su aula.","Los de 1° nos hacen preguntas.","Al final, cada uno de nosotros entrega sus tarjetas en mano: «esta es para vos»."],
     ejTit:"Cómo va a ser", ej:EJ.visita }
 ];
 
